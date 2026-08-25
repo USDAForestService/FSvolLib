@@ -1,7 +1,7 @@
 #pragma once
-#include "..\VolumeEquation.h"
-#include "..\Models\VolumeCalculationOptions.h"
-#include "..\VolumeCalculators\NationalScaleVolumeBiomass.h"
+#include "VolumeEquation.h"
+#include "Models/VolumeCalculationOptions.h"
+#include "VolumeCalculators/NationalScaleVolumeBiomass.h"
 #include "TaperModel.h"
 
 class NationalScaleVolumeBiomassTaperModel : public TaperModel

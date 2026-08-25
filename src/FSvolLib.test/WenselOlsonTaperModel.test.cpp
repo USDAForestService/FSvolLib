@@ -1,20 +1,13 @@
-#include "pch.h"
-#include "CppUnitTest.h"
+#include <gtest/gtest.h>
 
 #include "TaperModels/WenselOlsonTaperModel.h"
 #include "VolumeEquation.h"
 
 #include <string>
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-
-TEST_CLASS(WenselOlsonTaperModelTest)
+TEST(WenselOlsonTaperModelTest, GetDiameterAtHeightTest_With_FiaCode_122)
 {
-public:
-
-    TEST_METHOD(GetDiameterAtHeightTest_With_FiaCode_122)
-    {
         // Arrange
         VolumeEquation volEq = VolumeEquation::ParseVolumeEquationNumber("500WO2W122");
         //volEq.geoCode = VolumeEquation::GeoCode::R5;
@@ -34,9 +27,6 @@ public:
         auto result2 = taperModel.GetHeightAtDiameter(tree, 6.0);
 
         //// Assert
-        //Assert::IsTrue(result > 6.285 && result <= 6.29); // TODO need to create helper methods to test if floating point numbers are aproxamatly equal. 
-        
-    }
+        //EXPECT_NEAR(result, 6.287, 0.005); // TODO wire up a value once reference output is confirmed
 
-
-};
+}

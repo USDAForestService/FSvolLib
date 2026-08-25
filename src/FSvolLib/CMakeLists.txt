@@ -30,16 +30,37 @@ file(GLOB_RECURSE FSvolLib_SOURCES
     "WoodlandBiomass.cpp"
 )
 
-# Library type may vary by configuration; STATIC for Debug|x64 in original
-# Here we default to SHARED; platform presets will override
-add_library(FSvolLib SHARED ${FSvolLib_HEADERS} ${FSvolLib_SOURCES})
+add_library(FSvolLib STATIC ${FSvolLib_HEADERS} ${FSvolLib_SOURCES})
+
+# Expose headers so dependent targets (e.g. tests) get include paths automatically
+target_include_directories(FSvolLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Language standard
 set_target_properties(FSvolLib PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED YES)
 
 # Definitions
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_definitions(FSvolLib PRIVATE _DEBUG FSVOLLIB_EXPORTS)
+    target_compile_definitions(FSvolLib PRIVATE _DEBUG)
 else()
-    target_compile_definitions(FSvolLib PRIVATE NDEBUG FSVOLLIB_EXPORTS)
+    target_compile_definitions(FSvolLib PRIVATE NDEBUG)
+endif()
+
+# Tests are only built for host (not cross-compiled to WASM/Android)
+include(CTest)
+if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
+    add_subdirectory(../FSvolLib.test ${CMAKE_CURRENT_BINARY_DIR}/FSvolLib.test)
+endif()
+
+# ---------------------------------------------------------------------------
+# Interop DLL target (Windows P/Invoke surface for .NET consumers)
+# Enable with: cmake --preset win-... -DBUILD_INTEROP=ON
+# Not available for cross-compiled targets (WASM, Android).
+# ---------------------------------------------------------------------------
+option(BUILD_INTEROP "Build FSvolLibInterop shared library for .NET P/Invoke" OFF)
+if(BUILD_INTEROP)
+    if(WIN32 OR ANDROID)
+        add_subdirectory(../FSvolLib.interop ${CMAKE_CURRENT_BINARY_DIR}/FSvolLib.interop)
+    else()
+        message(WARNING "BUILD_INTEROP is only supported on Windows and Android (MAUI)")
+    endif()
 endif()

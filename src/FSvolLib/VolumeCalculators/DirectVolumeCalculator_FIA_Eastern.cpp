@@ -1,5 +1,5 @@
 #include "DirectVolumeCalculator_FIA_Eastern.h"
-#include "..\array_helper.h"
+#include "array_helper.h"
 #include <string>
 #include <vector>
 #include <cmath>

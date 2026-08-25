@@ -10,7 +10,7 @@
 #include "DirectVolumeCalculator_FIA_Southern.h"
 #include "HawaiiSharpnackVolume.h"
 #include "MerchHeightCalculator_R89.h"
-#include "..\SmalianScribnerIntl14.h"
+#include "SmalianScribnerIntl14.h"
 #include <cstring>
 
 TreeOutput DirectVolumeCalculator::CalculateVolume(VolumeCalculationOptions vco, TreeMeasurment tree, MerchRules merchRules)

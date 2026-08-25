@@ -1,20 +1,13 @@
-#include "pch.h"
-#include "CppUnitTest.h"
+#include <gtest/gtest.h>
 
 #include "TaperModels/CzaplewskiTaperModel.h"
 #include "VolumeEquation.h"
 
 #include <string>
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-
-TEST_CLASS(CzaplewskiTaperModelTest)
+TEST(CzaplewskiTaperModelTest, GetDiameterAtHeightTest_With_FiaCode_015)
 {
-public:
-
-    TEST_METHOD(GetDiameterAtHeightTest_With_FiaCode_015)
-    {
         // Arrange
         VolumeEquation volEq = VolumeEquation::ParseVolumeEquationNumber("200CZ3W015");
 
@@ -35,9 +28,6 @@ public:
         auto ht = taperModel.GetHeightAtDiameter(tree, d2);
 
         //// Assert
-        //Assert::IsTrue(result > 6.285 && result <= 6.29); // TODO need to create helper methods to test if floating point numbers are aproxamatly equal. 
+        //EXPECT_NEAR(result, 6.287, 0.005); // TODO wire up a value once reference output is confirmed
 
-    }
-
-
-};
+}

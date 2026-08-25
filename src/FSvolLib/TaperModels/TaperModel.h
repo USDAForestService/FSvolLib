@@ -2,9 +2,9 @@
 
 #include <map>
 #include <string>
-#include "..\Models\TreeMeasurment.h"
-#include "..\Models\MerchRules.h"
-#include "..\Models\VolumeCalculationOptions.h"
+#include "Models/TreeMeasurment.h"
+#include "Models/MerchRules.h"
+#include "Models/VolumeCalculationOptions.h"
 
 class TaperModel
 {

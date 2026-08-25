@@ -1,52 +1,40 @@
-#include "pch.h"
-#include "CppUnitTest.h"
+#include <gtest/gtest.h>
 
 #include "TaperModels/WenselOlsonTaperModel.h"
 #include "VolumeEquation.h"
 
 #include <string>
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-
-TEST_CLASS(VolumeEquationTest)
+TEST(VolumeEquationTest, ParseVolumeEquationNumber)
 {
-public:
+    // Arrange
+    std::string volumeEquationNumber = "500WO2W122";
 
-    TEST_METHOD(ParseVolumeEquationNumber)
-    {
-        // Arrange
-        std::string volumeEquationNumber = "500WO2W122";
+    // Act
+    VolumeEquation volEq = VolumeEquation::ParseVolumeEquationNumber(volumeEquationNumber);
 
-        // Act
-        VolumeEquation volEq = VolumeEquation::ParseVolumeEquationNumber(volumeEquationNumber);
+    // Assert
+    EXPECT_TRUE(volEq.geoCode == VolumeEquation::GeoCode::R5);
+    EXPECT_TRUE(volEq.modelType == VolumeEquation::ModelType::WO2);
+    EXPECT_TRUE(volEq.usRegion == 'W');
+    EXPECT_TRUE(volEq.fiaCode == 122);
+}
 
-        //// Assert
-        Assert::IsTrue(volEq.geoCode == VolumeEquation::GeoCode::R5); 
-        Assert::IsTrue(volEq.modelType == VolumeEquation::ModelType::WO2);
-        Assert::IsTrue(volEq.usRegion == 'W');
-        Assert::IsTrue(volEq.fiaCode == 122);
+TEST(VolumeEquationTest, GetVolumeEquationNumber)
+{
+    // Arrange
+    std::string expectedVolumeEquationNumber = "500WO2W122";
 
-    }
+    VolumeEquation volEq;
+    volEq.geoCode = VolumeEquation::GeoCode::R5;
+    volEq.modelType = VolumeEquation::ModelType::WO2;
+    volEq.usRegion = 'W';
+    volEq.fiaCode = 122;
 
-    TEST_METHOD(GetVolumeEquationNumber)
-    {
-        // Arrange
-        std::string expectedVolumeEquationNumber = "500WO2W122";
+    // Act
+    auto volumeEquationNumber = volEq.GetVolumeEquationNumber();
 
-        VolumeEquation volEq;
-        volEq.geoCode = VolumeEquation::GeoCode::R5;
-        volEq.modelType = VolumeEquation::ModelType::WO2;
-        volEq.usRegion = 'W';
-        volEq.fiaCode = 122;
-
-        // Act
-        auto volumeEquationNumber = volEq.GetVolumeEquationNumber();
-
-        //// Assert
-        Assert::IsTrue(volumeEquationNumber == expectedVolumeEquationNumber);
-
-    }
-
-
-};
+    // Assert
+    EXPECT_TRUE(volumeEquationNumber == expectedVolumeEquationNumber);
+}

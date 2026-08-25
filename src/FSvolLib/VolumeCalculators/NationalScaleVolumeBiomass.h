@@ -4,11 +4,11 @@
 
 #include "VolumeCalculatorBase.h"
 #include "NationalScaleVolumeBiomass.TableStruct.h"
-#include "..\Models\TreeOutput.h"
-#include "..\Models\TreeMeasurment.h"
-#include "..\VolumeEquation.h"
-#include "..\Models\VolumeCalculationOptions.h"
-#include "..\WeightfactorAndRefDataResolver.h"
+#include "Models/TreeOutput.h"
+#include "Models/TreeMeasurment.h"
+#include "VolumeEquation.h"
+#include "Models/VolumeCalculationOptions.h"
+#include "WeightFactorAndRefDataResolver.h"
 
 struct EqCoeffs {
     int    equation;

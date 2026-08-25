@@ -1,8 +1,8 @@
 #pragma once
-#include "..\Models\TreeOutput.h"
-#include "..\Models\TreeMeasurment.h"
-#include "..\Models\VolumeCalculationOptions.h"
-#include "..\Models\MerchRules.h"
+#include "Models/TreeOutput.h"
+#include "Models/TreeMeasurment.h"
+#include "Models/VolumeCalculationOptions.h"
+#include "Models/MerchRules.h"
 
 static const int r8spList[78] = {
      0, 100, 107, 110, 111, 115, 121, 123, 126, 128,

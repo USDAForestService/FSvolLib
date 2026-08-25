@@ -1,20 +1,13 @@
-#include "pch.h"
-#include "CppUnitTest.h"
+#include <gtest/gtest.h>
 
 #include "VolumeCalculators/NationalScaleVolumeBiomass.h"
 #include "VolumeEquation.h"
 
 #include <string>
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-
-TEST_CLASS(NationalScaleVolumeBiomassTest)
+TEST(NationalScaleVolumeBiomassTest, NSVB)
 {
-public:
-
-    TEST_METHOD(NSVB)
-    {
         // Arrange
         VolumeCalculationOptions vco;
         int spcd = 202;
@@ -97,25 +90,4 @@ public:
         int i = 0;
         //// Assert
 
-        //static double getDiaAtHeight(int spcd,
-        //    double dbh,
-        //    double totalHt,
-        //    int jkSpGrp,
-        //    int ecoRegion,
-        //    int standOrigin,
-        //    double upperHeight,
-        //    double totalCubic = 0.0,
-        //    std::string_view IbOrOb = "Ib");
-
-        //static double getHeightAtDiameter(int spcd,
-        //    double dbh,
-        //    double totalHt,
-        //    int jkSpGrp,
-        //    int ecoRegion,
-        //    int standOrigin,
-        //    double upperDiameter,
-        //    double totalCubic = 0.0,
-        //    std::string_view IbOrOb = "Ib");
-
-    }
-};
+}

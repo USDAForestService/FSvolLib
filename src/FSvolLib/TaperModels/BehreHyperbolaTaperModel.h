@@ -1,6 +1,6 @@
-﻿#pragma once
-#include "..\VolumeEquation.h"
-#include "..\Models\MerchRules.h"
+#pragma once
+#include "VolumeEquation.h"
+#include "Models/MerchRules.h"
 #include "TaperModel.h"
 #include <array>
 #include <cmath>

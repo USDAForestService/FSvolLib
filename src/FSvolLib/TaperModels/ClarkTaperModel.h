@@ -1,7 +1,7 @@
 #pragma once
 #include "ClarkProfileCoefficients_R9.h"
 #include "ClarkProfileCoefficients_R8.h"
-#include "..\VolumeEquation.h"
+#include "VolumeEquation.h"
 #include "TaperModel.h"
 #include <cmath>
 #include <string>

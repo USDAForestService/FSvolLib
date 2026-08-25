@@ -1,6 +1,6 @@
 #pragma once
-#include "..\Models\TreeMeasurment.h"
-#include "..\Models\TreeOutput.h"
+#include "Models/TreeMeasurment.h"
+#include "Models/TreeOutput.h"
 
 TreeOutput Hahn_NC_Vol(int fiaCode, TreeMeasurment tree, int siteIndex, int basalArea, double sawTopDib, double sawMinDbh);
 

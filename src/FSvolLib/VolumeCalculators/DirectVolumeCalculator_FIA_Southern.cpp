@@ -1,5 +1,5 @@
-﻿#include "DirectVolumeCalculator_FIA_Southern.h"
-#include "..\array_helper.h"
+#include "DirectVolumeCalculator_FIA_Southern.h"
+#include "array_helper.h"
 
 #include <cmath>
 #include <string>
@@ -393,7 +393,7 @@ TreeOutput SRS_Vol(const std::string& VOLEQ, TreeMeasurment tree, double bfMinDb
 
         out.grossCubicFootPrimary = CV4;
 
-        // Convert CV4 → TCU (total cubic)
+        // Convert CV4 ? TCU (total cubic)
         double TF = 1.0;
 
         if (DBH < 5.0)

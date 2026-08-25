@@ -1,5 +1,5 @@
-﻿#include "DirectVolumeCalculator_FIA_RockyMountain.h"
-#include "..\array_helper.h"
+#include "DirectVolumeCalculator_FIA_RockyMountain.h"
+#include "array_helper.h"
 #include <cmath>
 #include <string>
 #include <array>
@@ -195,7 +195,7 @@ TreeOutput Kemp_Vol(int fiaCode, double DBHOB, double HTTOT, double BFMIND)
 
     int ERRFLG = 0;
 
-    // Extract specie number VOLEQ(8:10) → C++ substr(7,3)
+    // Extract specie number VOLEQ(8:10) ? C++ substr(7,3)
     int SPN = fiaCode;  // std::stoi(VOLEQ.substr(7, 3));
 
     int IDX = -1;
@@ -375,7 +375,7 @@ TreeOutput Moisen_Vol(const std::string& VOLEQ, double DBHOB, double HTTOT, doub
     int ERRFLG = 0;
 
 
-    // Extract species VOLEQ(8:10) → substr(7,3)
+    // Extract species VOLEQ(8:10) ? substr(7,3)
     int SPN = std::stoi(VOLEQ.substr(7, 3));
 
     if (MTOPP < 0.1) MTOPP = 4.0;
@@ -390,12 +390,12 @@ TreeOutput Moisen_Vol(const std::string& VOLEQ, double DBHOB, double HTTOT, doub
         return out;
     }
 
-    int k = IDX;   // convert Fortran index → C++
+    int k = IDX;   // convert Fortran index ? C++
 
     double DBH = DBHOB;
     double THT = HTTOT;
 
-    // Plantation indicator VOLEQ(7:7) → VOLEQ[6]
+    // Plantation indicator VOLEQ(7:7) ? VOLEQ[6]
     if (VOLEQ[6] == '1')
     {
         if ((int)COEF1[k][0] == SPN)

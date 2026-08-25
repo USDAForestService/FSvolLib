@@ -1,19 +1,12 @@
-#include "pch.h"
-#include "CppUnitTest.h"
+#include <gtest/gtest.h>
 
 #include "TaperModels/NationalScaleVolumeBiomassTaperModel.h"
 #include "VolumeEquation.h"
 
 #include <string>
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-
-TEST_CLASS(NationalScaleVolumeBiomassTaperModelTest)
+TEST(NationalScaleVolumeBiomassTaperModelTest, GetDiameterAtHeightTest_With_NVB_122)
 {
-public:
-
-    TEST_METHOD(GetDiameterAtHeightTest_With_NVB_122)
-    {
         // Arrange
         VolumeEquation volEq = VolumeEquation::ParseVolumeEquationNumber("NVBM310122");
         //volEq.geoCode = VolumeEquation::GeoCode::R5;
@@ -37,10 +30,7 @@ public:
         auto dia = taperModel.GetDiameterAtHeight(tree, 20);
         auto ht = taperModel.GetHeightAtDiameter(tree, 6.0);
 
-        //// Assert
-        Assert::IsTrue(dia > 0.0); // TODO need to create helper methods to test if floating point numbers are aproxamatly equal. 
+        // Assert
+        EXPECT_TRUE(dia > 0.0);
 
-    }
-
-
-};
+}

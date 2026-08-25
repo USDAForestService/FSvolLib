@@ -1,19 +1,12 @@
-#include "pch.h"
-#include "CppUnitTest.h"
+#include <gtest/gtest.h>
 
 #include "VolumeLibrary.h"
 
 #include <string>
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-
-TEST_CLASS(VolumeLibraryTest)
+TEST(VolumeLibraryTest, CalculateVolumeTest)
 {
-public:
-
-    TEST_METHOD(CalculateVolumeTest)
-    {
         // Arrange
         VolumeLibrary& volLib = VolumeLibrary::getInstance();
         VolumeCalculationOptions volOpt;
@@ -70,9 +63,6 @@ public:
         // Act
         //auto treeOutput = volLib.CalculateVolume(volOpt, tree, merchRules);
 
-        //// Assert
-        Assert::IsTrue(treeOutput.grossCubicFootPrimary > 0);
-    }
-
-
-};
+        // Assert
+        EXPECT_TRUE(treeOutput.grossCubicFootPrimary > 0);
+}

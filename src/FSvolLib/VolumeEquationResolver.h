@@ -4,7 +4,7 @@
 #include <map>
 
 #include "VolumeEquation.h"
-#include "Models\VolumeCalculationOptions.h" 
+#include "Models/VolumeCalculationOptions.h" 
 
 class VolumeEquationResolver
 {

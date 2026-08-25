@@ -1,5 +1,5 @@
-﻿#include "JenkinsBiomass.h"
-#include "..\WeightFactorAndRefDataResolver.h"
+#include "JenkinsBiomass.h"
+#include "WeightFactorAndRefDataResolver.h"
 #include <cmath>
 #include <array>
 #include <vector>
@@ -118,31 +118,31 @@ inline void stumpCoef(int spcd, double& DOBB, double& DIBA, double& DIBB) {
             int err = 0;
             int done = 0;
 
-            // Groups 1,2,3 → map to 261
+            // Groups 1,2,3 ? map to 261
             done = searchLinear(55, spgrp123.data(), SPN);
             if (done > 0) { SPN = 261; continue; }
 
-            // Group 4 → map to 125 (NOTE: only first 34 entries searched per original code)
+            // Group 4 ? map to 125 (NOTE: only first 34 entries searched per original code)
             done = searchLinear(34, spgrp4.data(), SPN);
             if (done > 0) { SPN = 125; continue; }
 
-            // Group 5 → map to 90
+            // Group 5 ? map to 90
             done = searchLinear(9, spgrp5.data(), SPN);
             if (done > 0) { SPN = 90; continue; }
 
-            // Group 6 → map to 746
+            // Group 6 ? map to 746
             done = searchLinear(27, spgrp6.data(), SPN);
             if (done > 0) { SPN = 746; continue; }
 
-            // Group 7 → map to 317
+            // Group 7 ? map to 317
             done = searchLinear(18, spgrp7.data(), SPN);
             if (done > 0) { SPN = 317; continue; }
 
-            // Group 9 → map to 833
+            // Group 9 ? map to 833
             done = searchLinear(59, spgrp9.data(), SPN);
             if (done > 0) { SPN = 833; continue; }
 
-            // Group 10 → map to 833
+            // Group 10 ? map to 833
             done = searchLinear(38, spgrp10.data(), SPN);
             if (done > 0) { SPN = 833; continue; }
 
@@ -184,7 +184,7 @@ StumpVolume raileVol(int spn, double dbh, double htup)
     double volIB;
     double volOB;
 
-    // Constant: π/4 / 144 ≈ 0.0054541539
+    // Constant: p/4 / 144 � 0.0054541539
     constexpr double K = 0.0054541539;
 
     if (htup < 0.01) htup = 1.0;
@@ -267,7 +267,7 @@ BiomassOutput jenkins(int SPEC, double DBHOB)
         // The SPCD is Jenkins group code (1..10)
         SPCLS = 1;                // default hardwood for groups >= 6
         if (SPCD < 6) SPCLS = 0;  // groups 1..5 are softwood
-        if (SPCD == 0) SPCD = 10; // map 0 → 10 per Fortran
+        if (SPCD == 0) SPCD = 10; // map 0 ? 10 per Fortran
         SPGRPCD = SPCD;
     }
     else {
@@ -282,17 +282,17 @@ BiomassOutput jenkins(int SPEC, double DBHOB)
     DBHIN = DBHOB;
     DBHCM = 2.54 * DBHIN;
 
-    // For woodland species (group 10), DRC→DBH conversion (commented as in Fortran)
+    // For woodland species (group 10), DRC?DBH conversion (commented as in Fortran)
     // The conversion from DRC to DBH should be done before calling Jenkins
     // if (SPGRPCD == 10) DBHCM = std::exp(-0.35031 + 1.03991 * std::log(DBHCM));
 
-    // --- Stump biomass from Raile volumes (only for DBH ≥ 5 in) ---
+    // --- Stump biomass from Raile volumes (only for DBH = 5 in) ---
     STUMP = 0.0;
     if (DBHIN >= 5.0) {
         stumpVol = raileVol(SPCD, DBHIN, STUMPHT);
-        // volumes in ft^3, densities in lb/ft^3 → mass in lb
+        // volumes in ft^3, densities in lb/ft^3 ? mass in lb
         STUMP = stumpVol.woodVol * WDEN + stumpVol.barkVol * BDEN;
-        // Convert lb → kg to sum with Jenkins components (which are computed in kg)
+        // Convert lb ? kg to sum with Jenkins components (which are computed in kg)
         STUMP /= KG2LB;
     }
 

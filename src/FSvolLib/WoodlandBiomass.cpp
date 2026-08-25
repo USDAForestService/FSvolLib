@@ -1,11 +1,11 @@
-﻿#include <cmath>
+#include <cmath>
 #include <string>
 #include <array>
 #include <algorithm>
 #include <cctype>
 #include <stdexcept>
 #include "WoodlandBiomass.h"
-#include "VolumeCalculators\JenkinsBiomass.h"
+#include "VolumeCalculators/JenkinsBiomass.h"
 
 // --------------------------
 // Helper: safe substring
@@ -165,7 +165,7 @@ BiomassOutput woodlandBiomass(VolumeCalculationOptions vco, TreeMeasurment tree,
         DRYBIO[5] = BIO3; // DRYBIO(6) in Fortran
 
         // Branches & foliage
-        const double BIO3_M = BIO3 / 2.2046; // lb → kg
+        const double BIO3_M = BIO3 / 2.2046; // lb ? kg
         double WT_FOL = 0.0, WT_BRA = 0.0;
 
         if (SPN >= 300) {
@@ -191,7 +191,7 @@ BiomassOutput woodlandBiomass(VolumeCalculationOptions vco, TreeMeasurment tree,
                     WT_FOL_M = std::exp(1.2867 + 0.649 * (1.0 + std::log(150.0) - 150.0 / BIO3_M));
                 }
             }
-            WT_FOL = WT_FOL_M * 2.2046; // kg → lb
+            WT_FOL = WT_FOL_M * 2.2046; // kg ? lb
             WT_BRA = WT_FOL * 0.75;
             WT_FOL = WT_FOL * 0.25;
         }

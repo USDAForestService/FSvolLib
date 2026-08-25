@@ -5,22 +5,22 @@
 #include <memory>
 #include <exception>
 
-#include "Models\VolumeCalculationOptions.h"
-#include "Models\MerchRules.h"
+#include "Models/VolumeCalculationOptions.h"
+#include "Models/MerchRules.h"
 #include "VolumeEquationResolver.h"
 #include "VolumeEquation.h"
 
-#include "VolumeCalculators\VolumeCalculatorBase.h"
-#include "VolumeCalculators\ProfileVolumeCalculator.h"
-#include "TaperModels\WenselOlsonTaperModel.h"
-#include "TaperModels\NationalScaleVolumeBiomassTaperModel.h"
-#include "TaperModels\RustagiTaperModel.h"
-#include "TaperModels\BehreHyperbolaTaperModel.h"
-#include "TaperModels\DeMarsTaperModel.h"
-#include "TaperModels\CzaplewskiTaperModel.h"
-#include "TaperModels\ClarkTaperModel.h"
-#include "TaperModels\FlewellingTaperModel.h"
-#include "VolumeCalculators\DirectVolumeCalculator.h"
+#include "VolumeCalculators/VolumeCalculatorBase.h"
+#include "VolumeCalculators/ProfileVolumeCalculator.h"
+#include "TaperModels/WenselOlsonTaperModel.h"
+#include "TaperModels/NationalScaleVolumeBiomassTaperModel.h"
+#include "TaperModels/RustagiTaperModel.h"
+#include "TaperModels/BehreHyperbolaTaperModel.h"
+#include "TaperModels/DeMarsTaperModel.h"
+#include "TaperModels/CzaplewskiTaperModel.h"
+#include "TaperModels/ClarkTaperModel.h"
+#include "TaperModels/FlewellingTaperModel.h"
+#include "VolumeCalculators/DirectVolumeCalculator.h"
 
 class VolumeCalculatorFactory
 {

@@ -1,9 +1,9 @@
-ï»¿#include <array>
+#include <array>
 #include <cmath>
 #include <cstddef>
 #include <string>
 #include <algorithm>
-#include "..\VolumeCalculators\DirectVolumeCalculator_R1.h"
+#include "VolumeCalculators/DirectVolumeCalculator_R1.h"
 
 // ---- Constants ported from FORTRAN DATA blocks ----
 
@@ -397,7 +397,7 @@ TreeOutput R1KEMP(const std::string& VOLEQ, VolumeCalculationOptions vco, TreeMe
 //R1Allen.f
 
 // =========================
-// Utility: BehrÃ© hyperbola integral function (ratio usage)
+// Utility: Behré hyperbola integral function (ratio usage)
 // =========================
 static inline double bhre(double L1, double L2, double AHAT, double BHAT) {
     const double ALB1 = AHAT * L1 + BHAT;
@@ -553,7 +553,7 @@ static inline double TOTVOL(int ISPC_1based, double DBHOB, double HTTOT, double 
 }
 
 // =========================
-// Helpers: VOLEQ â†’ species index (R1ALLENC/R1ALLENB)
+// Helpers: VOLEQ ? species index (R1ALLENC/R1ALLENB)
 // =========================
 static inline bool map_ispc_R1ALLENC(const std::string& VOLEQ, int& ISPC) {
     if (VOLEQ.size() < 10) return false;
@@ -633,7 +633,7 @@ TreeOutput R1ALLENC(const std::string& VOLEQ, VolumeCalculationOptions vco, Tree
 
     const double D2H = DBHOB * DBHOB * HTTOT;
 
-    // Paper birch (ISPC=12) â€“ North Central Station equation (7/2001)
+    // Paper birch (ISPC=12) – North Central Station equation (7/2001)
     if (ISPC == 12) {
         if (DBHOB < 5.0) {
             CUVOL = 0.0;
@@ -649,7 +649,7 @@ TreeOutput R1ALLENC(const std::string& VOLEQ, VolumeCalculationOptions vco, Tree
         out.grossCubicFootPrimary = CUVOL;
         return out;
     }
-    // Cottonwood (ISPC=13) â€“ Edminster RN RM-351 (7/2001)
+    // Cottonwood (ISPC=13) – Edminster RN RM-351 (7/2001)
     if (ISPC == 13) {
         CUVOL = 0.00142526 * std::pow(D2H, 1.0636);
         TCVOL = CUVOL;
@@ -674,7 +674,7 @@ TreeOutput R1ALLENC(const std::string& VOLEQ, VolumeCalculationOptions vco, Tree
     // Initialize total cubic volume
     TCVOL = VMAX;
 
-    // BehrÃ© hyperbola parameter estimation
+    // Behré hyperbola parameter estimation
     double BHAT = VMAX / (0.00545415 * DBHOB * DBHOB * BARK * BARK * HTTOT);
     if (BHAT > 0.95) BHAT = 0.95;
     double AHAT = 0.44277 - 0.99167 / BHAT - 1.43237 * std::log(BHAT)

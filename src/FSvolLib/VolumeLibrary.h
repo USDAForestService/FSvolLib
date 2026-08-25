@@ -3,10 +3,10 @@
 #include <string>
 #include <optional>
 
-#include "Models\TreeOutput.h"
-#include "Models\VolumeCalculationOptions.h"
-#include "Models\TreeMeasurment.h"
-#include "Models\MerchRules.h"
+#include "Models/TreeOutput.h"
+#include "Models/VolumeCalculationOptions.h"
+#include "Models/TreeMeasurment.h"
+#include "Models/MerchRules.h"
 #include "VolumeCalculatorFactory.h"
 #include "MerchRulesResolver.h"
 

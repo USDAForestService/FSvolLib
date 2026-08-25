@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\VolumeEquation.h"
+#include "VolumeEquation.h"
 #include "TaperModel.h"
 #include <array>
 #include <cmath>

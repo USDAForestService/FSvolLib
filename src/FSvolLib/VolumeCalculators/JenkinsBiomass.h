@@ -1,5 +1,5 @@
 #pragma once
-#include "..\Models\BiomassOutput.h"
+#include "Models/BiomassOutput.h"
 
 struct StumpVolume {
 	double woodVol = 0.0;

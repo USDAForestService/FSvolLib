@@ -1,8 +1,8 @@
-#include "..\TaperModels\BlmTaperAndDbhIb.h"
-#include "..\SmalianScribnerIntl14.h"
+#include "TaperModels/BlmTaperAndDbhIb.h"
+#include "SmalianScribnerIntl14.h"
 #include "ProfileVolumeCalculator.h"
-#include "..\WeightfactorAndRefDataResolver.h"
-#include "..\DefaultFormClassForFVS.h"
+#include "WeightFactorAndRefDataResolver.h"
+#include "DefaultFormClassForFVS.h"
 #include <array>
 
 

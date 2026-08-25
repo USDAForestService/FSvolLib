@@ -1,7 +1,7 @@
 #include "BlmTaperAndDbhIb.h"
 #include "BehreHyperbolaTaperModel.h"
-#include "../DefaultFormClassForFVS.h"
-#include "../Volumecalculators/JenkinsBiomass.h"
+#include "DefaultFormClassForFVS.h"
+#include "VolumeCalculators/JenkinsBiomass.h"
 
 BehreHyperbolaTaperModel::BehreHyperbolaTaperModel(VolumeEquation volumeEquation)
     : TaperModel(), volEqStr_(volumeEquation.GetVolumeEquationNumber())

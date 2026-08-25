@@ -3,11 +3,11 @@
 #include <string>
 #include <stdexcept>
 
-#include "..\Models\MerchRules.h"
-#include "..\Models\TreeOutput.h"
-#include "..\Models\TreeMeasurment.h"
-#include "..\Models\VolumeCalculationOptions.h"
-#include "..\VolumeEquation.h"
+#include "Models/MerchRules.h"
+#include "Models/TreeOutput.h"
+#include "Models/TreeMeasurment.h"
+#include "Models/VolumeCalculationOptions.h"
+#include "VolumeEquation.h"
 
 class VolumeCalculatorBase
 {

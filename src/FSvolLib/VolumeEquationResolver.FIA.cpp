@@ -1,5 +1,5 @@
 #include "WeightFactorAndRefDataResolver.h"
-#include "VolumecalCulators\NationalScaleVolumeBiomass.h"
+#include "VolumeCalculators/NationalScaleVolumeBiomass.h"
 #include "VolumeEquationResolver.h"
 #include <array>
 #include <vector>

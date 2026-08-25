@@ -4,13 +4,13 @@
 #include <vector>
 
 #include "VolumeCalculatorBase.h"
-#include "..\Models\MerchRules.h"
-#include "..\TaperModels\TaperModel.h"
-#include "..\Models\TreeOutput.h"
-#include "..\Models\TreeMeasurment.h"
-#include "..\VolumeEquation.h"
-#include "..\Models\VolumeCalculationOptions.h"
-#include "..\MerchRulesResolver.h"
+#include "Models/MerchRules.h"
+#include "TaperModels/TaperModel.h"
+#include "Models/TreeOutput.h"
+#include "Models/TreeMeasurment.h"
+#include "VolumeEquation.h"
+#include "Models/VolumeCalculationOptions.h"
+#include "MerchRulesResolver.h"
 
 
 class ProfileVolumeCalculator : public VolumeCalculatorBase
