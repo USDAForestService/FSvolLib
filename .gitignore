@@ -1,0 +1,36 @@
+# Backup files
+*~ 
+*.bak
+
+# CMake build output
+src/FSvolLib/out/
+
+# Prevent accidental in-source CMake builds
+CMakeCache.txt
+cmake_install.cmake
+CMakeFiles/
+#*.sln
+ALL_BUILD.vcxproj
+ALL_BUILD.vcxproj.filters
+ZERO_CHECK.vcxproj
+ZERO_CHECK.vcxproj.filters
+
+# MSBuild / VS intermediates
+Debug/
+Release/
+x64/
+*.pdb
+*.pch
+*.idb
+*.ilk
+*.exp
+*.lib
+*.dll
+*.exe
+*.obj
+
+# VS user settings
+*.vcxproj.user
+*.suo
+*.user
+.vs/
