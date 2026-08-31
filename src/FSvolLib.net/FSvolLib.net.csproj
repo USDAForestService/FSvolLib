@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Platforms>x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug\FSvolLibInterop.dll"
+          Link="FSvolLibInterop.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          Condition="Exists('..\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug\FSvolLibInterop.dll')" />
+  </ItemGroup>
+</Project>

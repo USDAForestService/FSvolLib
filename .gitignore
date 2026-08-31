@@ -19,6 +19,7 @@ ZERO_CHECK.vcxproj.filters
 Debug/
 Release/
 x64/
+obj/
 *.pdb
 *.pch
 *.idb
