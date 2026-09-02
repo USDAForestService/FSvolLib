@@ -1,0 +1,61 @@
+{
+  "version": 5,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21
+  },
+  "include": [
+    "FSvolLib/CMakePresets.json"
+  ],
+  "configurePresets": [
+    {
+      "name": "win-dev",
+      "displayName": "Windows Dev",
+      "inherits": "win-debug-x64",
+      "binaryDir": "${sourceDir}/FSvolLib/out/build/${presetName}"
+    },
+    {
+      "name": "win-ci-debug",
+      "displayName": "Windows CI Debug",
+      "inherits": "win-debug-x64",
+      "binaryDir": "${sourceDir}/FSvolLib/out/build/${presetName}"
+    },
+    {
+      "name": "win-ci-release",
+      "displayName": "Windows CI Release",
+      "inherits": "win-release-x64",
+      "binaryDir": "${sourceDir}/FSvolLib/out/build/${presetName}"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "win-dev-build",
+      "configurePreset": "win-dev"
+    },
+    {
+      "name": "win-ci-debug-build",
+      "configurePreset": "win-ci-debug"
+    },
+    {
+      "name": "win-ci-release-build",
+      "configurePreset": "win-ci-release"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "win-dev-test",
+      "configurePreset": "win-dev",
+      "configuration": "Debug"
+    },
+    {
+      "name": "win-ci-debug-test",
+      "configurePreset": "win-ci-debug",
+      "configuration": "Debug"
+    },
+    {
+      "name": "win-ci-release-test",
+      "configurePreset": "win-ci-release",
+      "configuration": "Release"
+    }
+  ]
+}
