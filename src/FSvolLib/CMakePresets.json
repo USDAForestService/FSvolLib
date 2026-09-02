@@ -12,9 +12,7 @@
       "generator": "Visual Studio 17 2022",
       "architecture": "x64",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
-      }
+      "cacheVariables": {}
     },
     {
       "name": "win-release-x64",
@@ -22,17 +20,15 @@
       "generator": "Visual Studio 17 2022",
       "architecture": "x64",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
-      }
+      "cacheVariables": {}
     },
     {
       "name": "emscripten-wasm",
-      "displayName": "Emscripten WASM", 
+      "displayName": "Emscripten WASM",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
       "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/emscripten/cmake/Modules/Platform/Emscripten.cmake",
+        "CMAKE_TOOLCHAIN_FILE": "$env{EMSDK}/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake",
         "CMAKE_BUILD_TYPE": "Release"
       }
     },

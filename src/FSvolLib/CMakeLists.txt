@@ -39,11 +39,10 @@ target_include_directories(FSvolLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 set_target_properties(FSvolLib PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED YES)
 
 # Definitions
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_definitions(FSvolLib PRIVATE _DEBUG)
-else()
-    target_compile_definitions(FSvolLib PRIVATE NDEBUG)
-endif()
+target_compile_definitions(FSvolLib PRIVATE
+    $<$<CONFIG:Debug>:_DEBUG>
+    $<$<NOT:$<CONFIG:Debug>>:NDEBUG>
+)
 
 # Tests are only built for host (not cross-compiled to WASM/Android)
 include(CTest)
@@ -61,6 +60,6 @@ if(BUILD_INTEROP)
     if(WIN32 OR ANDROID)
         add_subdirectory(../FSvolLib.interop ${CMAKE_CURRENT_BINARY_DIR}/FSvolLib.interop)
     else()
-        message(WARNING "BUILD_INTEROP is only supported on Windows and Android (MAUI)")
+        message(WARNING "BUILD_INTEROP is only supported on Windows and Android")
     endif()
 endif()

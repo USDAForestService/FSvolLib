@@ -4,6 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+    <NativeInteropDir Condition="'$(NativeInteropDir)' == ''">..\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug</NativeInteropDir>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug\FSvolLibInterop.dll"
+    <None Include="$(NativeInteropDir)\FSvolLibInterop.dll"
           Link="FSvolLibInterop.dll"
           CopyToOutputDirectory="PreserveNewest"
-          Condition="Exists('..\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug\FSvolLibInterop.dll')" />
+          Condition="Exists('$(NativeInteropDir)\FSvolLibInterop.dll')" />
   </ItemGroup>
 </Project>
