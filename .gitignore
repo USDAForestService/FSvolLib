@@ -4,6 +4,7 @@
 
 # CMake build output
 src/FSvolLib/out/
+src/out/
 
 # Prevent accidental in-source CMake builds
 CMakeCache.txt

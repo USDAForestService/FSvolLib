@@ -51,15 +51,10 @@ if(BUILD_TESTING AND NOT CMAKE_CROSSCOMPILING)
 endif()
 
 # ---------------------------------------------------------------------------
-# Interop DLL target (Windows P/Invoke surface for .NET consumers)
+# Interop DLL target
 # Enable with: cmake --preset win-... -DBUILD_INTEROP=ON
-# Not available for cross-compiled targets (WASM, Android).
 # ---------------------------------------------------------------------------
-option(BUILD_INTEROP "Build FSvolLibInterop shared library for .NET P/Invoke" OFF)
+option(BUILD_INTEROP "Build FSvolLibInterop shared library" OFF)
 if(BUILD_INTEROP)
-    if(WIN32 OR ANDROID)
-        add_subdirectory(../FSvolLib.interop ${CMAKE_CURRENT_BINARY_DIR}/FSvolLib.interop)
-    else()
-        message(WARNING "BUILD_INTEROP is only supported on Windows and Android")
-    endif()
+    add_subdirectory(../FSvolLib.interop ${CMAKE_CURRENT_BINARY_DIR}/FSvolLib.interop)
 endif()
