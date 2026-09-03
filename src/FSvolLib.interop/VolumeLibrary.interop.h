@@ -172,7 +172,7 @@ typedef struct ErrorInfo_C
     char* errorMessage;
 } ErrorInfo_C;
 
-FSVOLLIB_INTEROP_API bool TryCalculateVolume(const VolumeCalculationOptions_C* options,
+FSVOLLIB_INTEROP_API bool CalculateVolume(const VolumeCalculationOptions_C* options,
                                             const TreeMeasurment_C* tree,
                                             TreeOutput_C** out,
                                             ErrorInfo_C** error);

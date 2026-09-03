@@ -8,7 +8,7 @@ if not exist "%VSWHERE%" (
 )
 
 set "CMakePath="
-for /f "usebackq delims=" %%i in (`"%VSWHERE%" -latest -prerelease -products * -find Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe`) do (
+for /f "usebackq delims=" %%i in (`"%VSWHERE%" -latest -prerelease -products * -requires Microsoft.VisualStudio.Component.VC.CMake.Project -find Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe`) do (
   set "CMakePath=%%i"
 )
 

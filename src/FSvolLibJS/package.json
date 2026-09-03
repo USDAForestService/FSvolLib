@@ -1,0 +1,21 @@
+{
+  "name": "@fsvollib/js",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TypeScript utilities for FSvolLib WASM artifacts.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src/**/*.ts",
+    "wasm/**/*"
+  ],
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "typescript": "^5.8.3"
+  }
+}

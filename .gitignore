@@ -36,3 +36,8 @@ obj/
 *.suo
 *.user
 .vs/
+
+# Node / TypeScript
+node_modules/
+*.tsbuildinfo
+src/FSvolLibJS.test/coverage/

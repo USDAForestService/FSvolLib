@@ -29,6 +29,7 @@
       "binaryDir": "${sourceDir}/out/build/${presetName}",
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "$env{EMSDK}/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake",
+        "BUILD_INTEROP": "ON",
         "CMAKE_BUILD_TYPE": "Release"
       }
     },

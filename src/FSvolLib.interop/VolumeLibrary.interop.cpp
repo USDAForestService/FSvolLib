@@ -173,6 +173,7 @@ static bool ensure_valid_input(const VolumeCalculationOptions_C* options,
                               TreeOutput_C** out,
                               ErrorInfo_C** error)
 {
+    // TODO add individual check for each field and indicate null field in error message
     if (options == nullptr || tree == nullptr || out == nullptr)
     {
         if (error != nullptr)
@@ -192,10 +193,10 @@ static bool ensure_valid_input(const VolumeCalculationOptions_C* options,
 }
 } // namespace
 
-extern "C" bool FSVOLLIB_INTEROP_API TryCalculateVolume(const VolumeCalculationOptions_C* options,
-                                                        const TreeMeasurment_C* tree,
-                                                        TreeOutput_C** out,
-                                                        ErrorInfo_C** error)
+extern "C" bool FSVOLLIB_INTEROP_API CalculateVolume(const VolumeCalculationOptions_C* options,
+                                                      const TreeMeasurment_C* tree,
+                                                      TreeOutput_C** out,
+                                                      ErrorInfo_C** error)
 {
     if (!ensure_valid_input(options, tree, out, error))
     {

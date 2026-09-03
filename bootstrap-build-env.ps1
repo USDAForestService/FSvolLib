@@ -37,6 +37,17 @@ function Find-VsToolPath {
     return $resolved.Trim()
 }
 
+function Find-ToolOnPath {
+    param([Parameter(Mandatory)][string]$CommandName)
+
+    $command = Get-Command $CommandName -ErrorAction SilentlyContinue
+    if (-not $command) {
+        return $null
+    }
+
+    return $command.Source
+}
+
 function Add-ToPathIfMissing {
     param([Parameter(Mandatory)][string]$Directory)
 
@@ -50,8 +61,15 @@ function Add-ToPathIfMissing {
     }
 }
 
-$cmakePath = Find-VsToolPath -RelativePath 'Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe' -RequiredComponent 'Microsoft.Component.MSBuild'
-$ninjaPath = Find-VsToolPath -RelativePath 'Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja\ninja.exe' -RequiredComponent 'Microsoft.Component.MSBuild'
+$cmakePath = Find-ToolOnPath -CommandName 'cmake'
+if (-not $cmakePath) {
+    $cmakePath = Find-VsToolPath -RelativePath 'Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe' -RequiredComponent 'Microsoft.VisualStudio.Component.VC.CMake.Project'
+}
+
+$ninjaPath = Find-ToolOnPath -CommandName 'ninja'
+if (-not $ninjaPath) {
+    $ninjaPath = Find-VsToolPath -RelativePath 'Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja\ninja.exe' -RequiredComponent 'Microsoft.VisualStudio.Component.VC.CMake.Project'
+}
 
 Add-ToPathIfMissing -Directory (Split-Path -Parent $cmakePath)
 Add-ToPathIfMissing -Directory (Split-Path -Parent $ninjaPath)
