@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ExcelAddInName>FS Volume Library V2 Excel Add-In</ExcelAddInName>
+		<ExcelAddInInclude>FSvolLibInterop.dll</ExcelAddInInclude>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="ExcelDna.Addin" Version="*-*" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <ProjectReference Include="..\FSvolLib.Interop\FSvolLib.Interop.csproj" />
+	</ItemGroup>
+</Project>

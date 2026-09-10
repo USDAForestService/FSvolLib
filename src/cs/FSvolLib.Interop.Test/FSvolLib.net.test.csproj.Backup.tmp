@@ -17,13 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FSvolLib.net\FSvolLib.net.csproj" />
+    <ProjectReference Include="..\FSvolLib.net\FSvolLib.Interop.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(NativeInteropDir)\FSvolLibInterop.dll"
-          Link="FSvolLibInterop.dll"
-          CopyToOutputDirectory="PreserveNewest"
-          Condition="Exists('$(NativeInteropDir)\FSvolLibInterop.dll')" />
+    <None Include="$(NativeInteropDir)\FSvolLibInterop.dll" Link="FSvolLibInterop.dll" CopyToOutputDirectory="PreserveNewest" Condition="Exists('$(NativeInteropDir)\FSvolLibInterop.dll')" />
   </ItemGroup>
 </Project>

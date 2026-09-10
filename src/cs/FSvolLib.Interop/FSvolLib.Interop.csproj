@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+			<TargetFramework>net10.0</TargetFramework>
+			<ImplicitUsings>enable</ImplicitUsings>
+			<Nullable>enable</Nullable>
+			<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<Platforms>x64</Platforms>
+
+	</PropertyGroup>
+
+	<PropertyGroup>
+			<NativeInteropDir Condition="'$(NativeInteropDir)' == '' and Exists('..\..\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug\FSvolLibInterop.dll')">..\..\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug</NativeInteropDir>
+			<NativeInteropDir Condition="'$(NativeInteropDir)' == '' and Exists('..\..\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug\FSvolLibInterop.dll')">..\..\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug</NativeInteropDir>
+			<NativeInteropDir Condition="'$(NativeInteropDir)' == ''">..\..\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug</NativeInteropDir>
+	</PropertyGroup>
+
+	<ItemGroup>
+			<Content Include="$(NativeInteropDir)\FSvolLibInterop.dll" Link="FSvolLibInterop.dll" CopyToOutputDirectory="PreserveNewest" Condition="Exists('$(NativeInteropDir)\FSvolLibInterop.dll')" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="VolumeLibrary.cs">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Compile>
+	</ItemGroup>
+	</Project>

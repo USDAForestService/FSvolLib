@@ -1,0 +1,13 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Project Path="FSvolLib.Interop.test/FSvolLib.Interop.test.csproj" DisplayName="FSvolLib.Interop.Test" />
+  <Project Path="FSvolLib.Interop/FSvolLib.Interop.csproj">
+    <Platform Project="x64" />
+  </Project>
+  <Project Path="FSvolLib.Xl/FSvolLib.Xl.csproj" Id="84e016ed-2329-4bec-9960-9177bad1c0e2" />
+</Solution>
