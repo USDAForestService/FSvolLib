@@ -5,45 +5,47 @@ namespace FSvolLib.Interop.Native
 {
     public class NativeMethodProvider : INativeMethodProvider
     {
-        [DllImport("FSvolLibInterop.dll", CallingConvention = CallingConvention.Cdecl)]
+        private const string NativeLibraryName = "FSvolLibInterop";
+
+        [DllImport(NativeLibraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern bool CalculateVolume(ref VolumeCalculationOptions_C options,
                                                             ref TreeMeasurment_C tree,
                                                             out IntPtr treeOutput,
                                                             out IntPtr error);
 
-        [DllImport("FSvolLibInterop.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLibraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern bool CalculateVolumeWithMerchRules(ref VolumeCalculationOptions_C options,
             ref TreeMeasurment_C tree,
             ref MerchRules_C merchRules,
             out IntPtr treeOutput,
             out IntPtr error);
 
-        [DllImport("FSvolLibInterop.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLibraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern void GetVolumeEquationNumber(ref VolumeCalculationOptions_C options,
             IntPtr outBuffer,
             int bufferLen);
 
-        [DllImport("FSvolLibInterop.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLibraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern double GetHeightAtDiameter([MarshalAs(UnmanagedType.LPUTF8Str)] string volEqNumber,
             ref TreeMeasurment_C tree,
             double diameter);
 
-        [DllImport("FSvolLibInterop.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLibraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern double GetDiameterAtHeight([MarshalAs(UnmanagedType.LPUTF8Str)] string volEqNumber,
             ref TreeMeasurment_C tree,
             double height);
 
-        [DllImport("FSvolLibInterop.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLibraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern int GetNumberOfLogs(ref VolumeCalculationOptions_C options,
             ref TreeMeasurment_C tree);
 
-        [DllImport("FSvolLibInterop.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLibraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern void GetVersion(IntPtr outBuffer, int bufferLen);
 
-        [DllImport("FSvolLibInterop.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLibraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern void free_tree_output_c(IntPtr value);
 
-        [DllImport("FSvolLibInterop.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(NativeLibraryName, CallingConvention = CallingConvention.Cdecl)]
         private static extern void free_error_info_c(IntPtr value);
 
         public static INativeMethods GetNativeMethods()

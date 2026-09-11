@@ -7,7 +7,7 @@ $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $srcRoot = Join-Path $repoRoot 'src'
 $buildArtifactRoot = Join-Path $srcRoot 'out\build\emscripten-wasm\FSvolLib\FSvolLib.interop'
-$packageArtifactRoot = Join-Path $repoRoot 'src\FSvolLibJS\wasm'
+$packageArtifactRoot = Join-Path $repoRoot 'src\js\FSvolLibJS\wasm'
 
 & (Join-Path $repoRoot 'bootstrap-build-env.ps1') -UseEmsdk -EmsdkEnvPath $EmsdkEnvPath
 

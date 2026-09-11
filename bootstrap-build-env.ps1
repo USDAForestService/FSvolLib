@@ -1,5 +1,6 @@
 param(
     [string]$EmsdkEnvPath = 'C:\Repos\clones\emsdk\emsdk_env.ps1',
+    [string]$AndroidNdkPath = 'C:\Program Files (x86)\Android\AndroidNDK\android-ndk-r27c',
     [switch]$UseEmsdk,
     [switch]$Quiet
 )
@@ -61,6 +62,24 @@ function Add-ToPathIfMissing {
     }
 }
 
+function Resolve-AndroidNdkPath {
+    param([string]$ConfiguredPath)
+
+    if ($env:ANDROID_NDK -and (Test-Path $env:ANDROID_NDK)) {
+        return $env:ANDROID_NDK
+    }
+
+    if ($env:ANDROID_NDK_ROOT -and (Test-Path $env:ANDROID_NDK_ROOT)) {
+        return $env:ANDROID_NDK_ROOT
+    }
+
+    if ($ConfiguredPath -and (Test-Path $ConfiguredPath)) {
+        return $ConfiguredPath
+    }
+
+    return $null
+}
+
 $cmakePath = Find-ToolOnPath -CommandName 'cmake'
 if (-not $cmakePath) {
     $cmakePath = Find-VsToolPath -RelativePath 'Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe' -RequiredComponent 'Microsoft.VisualStudio.Component.VC.CMake.Project'
@@ -76,6 +95,12 @@ Add-ToPathIfMissing -Directory (Split-Path -Parent $ninjaPath)
 
 $env:FSVOLLIB_CMAKE = $cmakePath
 $env:FSVOLLIB_NINJA = $ninjaPath
+
+$androidNdkPath = Resolve-AndroidNdkPath -ConfiguredPath $AndroidNdkPath
+if ($androidNdkPath) {
+    $env:ANDROID_NDK = $androidNdkPath
+    $env:ANDROID_NDK_ROOT = $androidNdkPath
+}
 
 if ($UseEmsdk) {
     if (-not (Test-Path $EmsdkEnvPath)) {
@@ -94,6 +119,9 @@ if (-not $Quiet) {
     Write-Host "Configured tools:" -ForegroundColor Cyan
     Write-Host "  CMake : $cmakePath"
     Write-Host "  Ninja : $ninjaPath"
+    if ($androidNdkPath) {
+        Write-Host "  NDK   : $androidNdkPath"
+    }
     if ($UseEmsdk) {
         Write-Host "  EMSDK : $env:EMSDK"
         Write-Host "  emcc  : $env:EM_CONFIG"

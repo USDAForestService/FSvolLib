@@ -5,26 +5,26 @@
     "minor": 21
   },
   "include": [
-    "FSvolLib/CMakePresets.json"
+    "cpp/FSvolLib/CMakePresets.json"
   ],
   "configurePresets": [
     {
       "name": "win-dev",
       "displayName": "Windows Dev",
       "inherits": "win-debug-x64",
-      "binaryDir": "${sourceDir}/FSvolLib/out/build/${presetName}"
+      "binaryDir": "${sourceDir}/cpp/FSvolLib/out/build/${presetName}"
     },
     {
       "name": "win-ci-debug",
       "displayName": "Windows CI Debug",
       "inherits": "win-debug-x64",
-      "binaryDir": "${sourceDir}/FSvolLib/out/build/${presetName}"
+      "binaryDir": "${sourceDir}/cpp/FSvolLib/out/build/${presetName}"
     },
     {
       "name": "win-ci-release",
       "displayName": "Windows CI Release",
       "inherits": "win-release-x64",
-      "binaryDir": "${sourceDir}/FSvolLib/out/build/${presetName}"
+      "binaryDir": "${sourceDir}/cpp/FSvolLib/out/build/${presetName}"
     }
   ],
   "buildPresets": [

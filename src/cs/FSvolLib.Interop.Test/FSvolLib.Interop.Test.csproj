@@ -4,9 +4,9 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<IsPackable>false</IsPackable>
-		<NativeInteropDir Condition="'$(NativeInteropDir)' == '' and Exists('..\..\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug\FSvolLibInterop.dll')">..\..\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug</NativeInteropDir>
-		<NativeInteropDir Condition="'$(NativeInteropDir)' == '' and Exists('..\..\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug\FSvolLibInterop.dll')">..\..\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug</NativeInteropDir>
-		<NativeInteropDir Condition="'$(NativeInteropDir)' == ''">..\..\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug</NativeInteropDir>
+		<NativeInteropDir Condition="'$(NativeInteropDir)' == '' and Exists('..\..\cpp\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug\FSvolLibInterop.dll')">..\..\cpp\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug</NativeInteropDir>
+		<NativeInteropDir Condition="'$(NativeInteropDir)' == '' and Exists('..\..\cpp\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug\FSvolLibInterop.dll')">..\..\cpp\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug</NativeInteropDir>
+		<NativeInteropDir Condition="'$(NativeInteropDir)' == ''">..\..\cpp\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug</NativeInteropDir>
 	</PropertyGroup>
 
 	<ItemGroup>

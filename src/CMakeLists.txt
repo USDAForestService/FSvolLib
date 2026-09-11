@@ -3,4 +3,4 @@ project(FSvolLibWorkspace LANGUAGES CXX)
 
 include(CTest)
 
-add_subdirectory(FSvolLib)
+add_subdirectory(cpp/FSvolLib)

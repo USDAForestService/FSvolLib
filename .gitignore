@@ -1,9 +1,9 @@
-# Backup files
+# Backup files/general excludes
 *~ 
 *.bak
 
 # CMake build output
-src/FSvolLib/out/
+src/cpp/FSvolLib/out/
 src/out/
 
 # Prevent accidental in-source CMake builds
@@ -40,4 +40,5 @@ obj/
 # Node / TypeScript
 node_modules/
 *.tsbuildinfo
-src/FSvolLibJS.test/coverage/
+src/js/FSvolLibJS.test/coverage/
+

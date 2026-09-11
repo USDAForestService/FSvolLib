@@ -1,21 +1,34 @@
-# FSvolLib
+# Forest Service Volume Estimation Library
 
-A portable C++ static library for forest volume and biomass calculations.
+The Forest Service Volume Estimation Library is a library written in C++ that provides various mathematical models for calculating estimated volumes and biomass weights for trees.  
 
 ---
 
 ## Development Environment Setup
 
-### Prerequisites
+The core of the volume library uses a CMake build system. 
 
-| Tool | Minimum Version | Notes |
-|------|----------------|-------|
-| **Visual Studio 2022** | 17.x | Install the **Desktop development with C++** workload |
-| CMake | 3.21 | Installed with VS **Desktop development with C++** workload |
+### C++ development
+
+C++ develop depends on several tools:
+ - CMake 3.20+ - build orchestration
+ - Ninja - compilation and linking
+ - Emscription - for wasm builds
+ - Android NDK - for Android builds
+
+ Excluding Emscription, these can be acquired individually, or you can use Visual Studio to install them for you. This build scripts default to assuming that these tools are installed using Visual Studio. The script `bootstrap-build-env`.ps1 can be modified to change default paths for tools.  
 
 ---
 
-### Visual Studio
+#### Visual Studio
+
+
+##### Setup Build Environment
+Using the Visual Studio Installer, install the "Desktop development with C++" and "Mobile development with C++" workloads. 
+
+> As of Visual Studio 2026, the **Mobile development with C++** will say Out of Support. Microsoft is retiring mobile C++ builds using MSBuild. However the only component we require is the **Android NDK** which will continue to be supported in Visual Studio. If using a Version of Visual Studio newer than 2026 the **Android NDK** component may be moved to a different workload.
+
+##### Opening CMake Project
 
 1. Start Visual Studio
 2. **Open the folder** — use *File → Open → Folder* and select this repository's folder. Visual Studio will automatically detect the entrypoint `src/CMakeLists.txt` and `src/CMakePresets.json`.
@@ -23,10 +36,12 @@ A portable C++ static library for forest volume and biomass calculations.
 3. **Build** — *Build → Build All* (`Ctrl+Shift+B`).
 4. **Run tests** — open *Test → Test Explorer* and click *Run All*. Tests are discovered via CTest/GTest.
 
-
-The CMake presets are configured for the **Visual Studio 17 2022** generator.
-
 > If Visual Studio does not pick up the presets automatically, go to *Project → CMake Settings* and confirm the `CMakePresets.json` path is correct.
+
+---
+
+### C# development
+For C# development use solution located at `src/cs/FSvolLib.Interop.slnx`
 
 ---
 
@@ -55,8 +70,6 @@ For WASM builds, use the bootstrap script to add Visual Studio CMake/Ninja and l
 # Or override emsdk env script path
 .\build-wasm.ps1 -EmsdkEnvPath 'D:\tools\emsdk\emsdk_env.ps1'
 ```
-
-
 
 The scripts default to the standardized preset aliases `win-dev` for debug and `win-ci-release` for release, and they stage the native interop DLL into the managed output path so `dotnet build` and `dotnet test` can load `FSvolLibInterop.dll` without manual copying.
 

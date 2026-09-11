@@ -18,7 +18,7 @@ if (-not $NativePreset) {
     $NativePreset = if ($Configuration -eq 'Release') { 'win-ci-release' } else { 'win-dev' }
 }
 
-$nativeBuildDir = Join-Path $repoRoot "src\FSvolLib\out\build\$NativePreset"
+$nativeBuildDir = Join-Path $repoRoot "src\cpp\FSvolLib\out\build\$NativePreset"
 $nativeInteropDir = Join-Path $nativeBuildDir "FSvolLib\FSvolLib.interop\$Configuration"
 
 Push-Location $srcRoot
@@ -33,10 +33,10 @@ finally {
     Pop-Location
 }
 
-dotnet build (Join-Path $repoRoot 'src\FSvolLib.net\FSvolLib.net.csproj') `
+dotnet build (Join-Path $repoRoot 'src\cs\FSvolLib.Interop\FSvolLib.Interop.csproj') `
     -c $Configuration `
     /p:NativeInteropDir=$nativeInteropDir
 
-dotnet build (Join-Path $repoRoot 'src\FSvolLib.net.test\FSvolLib.net.test.csproj') `
+dotnet build (Join-Path $repoRoot 'src\cs\FSvolLib.Interop.Test\FSvolLib.Interop.test.csproj') `
     -c $Configuration `
     /p:NativeInteropDir=$nativeInteropDir

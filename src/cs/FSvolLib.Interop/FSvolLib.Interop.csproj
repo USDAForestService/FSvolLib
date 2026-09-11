@@ -9,13 +9,19 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-			<NativeInteropDir Condition="'$(NativeInteropDir)' == '' and Exists('..\..\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug\FSvolLibInterop.dll')">..\..\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug</NativeInteropDir>
-			<NativeInteropDir Condition="'$(NativeInteropDir)' == '' and Exists('..\..\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug\FSvolLibInterop.dll')">..\..\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug</NativeInteropDir>
-			<NativeInteropDir Condition="'$(NativeInteropDir)' == ''">..\..\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug</NativeInteropDir>
+			<NativeInteropDir Condition="'$(NativeInteropDir)' == '' and Exists('..\..\cpp\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug\FSvolLibInterop.dll')">..\..\cpp\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug</NativeInteropDir>
+			<NativeInteropDir Condition="'$(NativeInteropDir)' == '' and Exists('..\..\cpp\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug\FSvolLibInterop.dll')">..\..\cpp\FSvolLib\out\build\win-debug-x64\FSvolLib.interop\Debug</NativeInteropDir>
+			<NativeInteropDir Condition="'$(NativeInteropDir)' == ''">..\..\cpp\FSvolLib\out\build\win-dev\FSvolLib\FSvolLib.interop\Debug</NativeInteropDir>
+	</PropertyGroup>
+
+	<PropertyGroup>
+			<WindowsInteropFileName>FSvolLibInterop.dll</WindowsInteropFileName>
+			<AndroidInteropFileName>libFSvolLibInterop.so</AndroidInteropFileName>
 	</PropertyGroup>
 
 	<ItemGroup>
-			<Content Include="$(NativeInteropDir)\FSvolLibInterop.dll" Link="FSvolLibInterop.dll" CopyToOutputDirectory="PreserveNewest" Condition="Exists('$(NativeInteropDir)\FSvolLibInterop.dll')" />
+			<Content Include="$(NativeInteropDir)\$(WindowsInteropFileName)" Link="$(WindowsInteropFileName)" CopyToOutputDirectory="PreserveNewest" Condition="Exists('$(NativeInteropDir)\$(WindowsInteropFileName)')" />
+			<Content Include="$(NativeInteropDir)\$(AndroidInteropFileName)" Link="runtimes\android-arm64\native\$(AndroidInteropFileName)" CopyToOutputDirectory="PreserveNewest" Condition="Exists('$(NativeInteropDir)\$(AndroidInteropFileName)')" />
 	</ItemGroup>
 
 	<ItemGroup>
