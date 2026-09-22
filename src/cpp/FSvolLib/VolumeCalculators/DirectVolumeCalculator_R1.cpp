@@ -1,9 +1,9 @@
-#include <array>
+ï»¿#include <array>
 #include <cmath>
 #include <cstddef>
 #include <string>
 #include <algorithm>
-#include "VolumeCalculators/DirectVolumeCalculator_R1.h"
+#include "..\VolumeCalculators\DirectVolumeCalculator_R1.h"
 
 // ---- Constants ported from FORTRAN DATA blocks ----
 
@@ -397,7 +397,7 @@ TreeOutput R1KEMP(const std::string& VOLEQ, VolumeCalculationOptions vco, TreeMe
 //R1Allen.f
 
 // =========================
-// Utility: Behré hyperbola integral function (ratio usage)
+// Utility: BehrÃ© hyperbola integral function (ratio usage)
 // =========================
 static inline double bhre(double L1, double L2, double AHAT, double BHAT) {
     const double ALB1 = AHAT * L1 + BHAT;
@@ -553,7 +553,7 @@ static inline double TOTVOL(int ISPC_1based, double DBHOB, double HTTOT, double 
 }
 
 // =========================
-// Helpers: VOLEQ ? species index (R1ALLENC/R1ALLENB)
+// Helpers: VOLEQ â†’ species index (R1ALLENC/R1ALLENB)
 // =========================
 static inline bool map_ispc_R1ALLENC(const std::string& VOLEQ, int& ISPC) {
     if (VOLEQ.size() < 10) return false;
@@ -574,27 +574,6 @@ static inline bool map_ispc_R1ALLENC(const std::string& VOLEQ, int& ISPC) {
     else return false;
     return true;
 }
-
-//static inline bool map_ispc_R1ALLENB(const std::string& VOLEQ, int& ISPC, bool& early_return_zero) {
-//    if (VOLEQ.size() < 10) return false;
-//    const std::string code = VOLEQ.substr(7, 3); // (8:10)
-//    early_return_zero = false;
-//    if (code == "119") ISPC = 1;
-//    else if (code == "073") ISPC = 2;
-//    else if (code == "202") ISPC = 3;
-//    else if (code == "017") ISPC = 4;
-//    else if (code == "263" || code == "260") ISPC = 5;
-//    else if (code == "242" || code == "240") ISPC = 6;
-//    else if (code == "108") ISPC = 7;
-//    else if (code == "093" || code == "090") ISPC = 8;
-//    else if (code == "019") ISPC = 9;
-//    else if (code == "122") ISPC = 10;
-//    else if (code == "999") ISPC = 11;
-//    else if (code == "375") { early_return_zero = true; return true; }
-//    else if (code == "740") { early_return_zero = true; return true; }
-//    else return false;
-//    return true;
-//}
 
 // =========================
 // R1ALLENC: cubic volumes (merchantable and total)
@@ -633,7 +612,7 @@ TreeOutput R1ALLENC(const std::string& VOLEQ, VolumeCalculationOptions vco, Tree
 
     const double D2H = DBHOB * DBHOB * HTTOT;
 
-    // Paper birch (ISPC=12) – North Central Station equation (7/2001)
+    // Paper birch (ISPC=12) â€“ North Central Station equation (7/2001)
     if (ISPC == 12) {
         if (DBHOB < 5.0) {
             CUVOL = 0.0;
@@ -649,7 +628,7 @@ TreeOutput R1ALLENC(const std::string& VOLEQ, VolumeCalculationOptions vco, Tree
         out.grossCubicFootPrimary = CUVOL;
         return out;
     }
-    // Cottonwood (ISPC=13) – Edminster RN RM-351 (7/2001)
+    // Cottonwood (ISPC=13) â€“ Edminster RN RM-351 (7/2001)
     if (ISPC == 13) {
         CUVOL = 0.00142526 * std::pow(D2H, 1.0636);
         TCVOL = CUVOL;
@@ -674,7 +653,7 @@ TreeOutput R1ALLENC(const std::string& VOLEQ, VolumeCalculationOptions vco, Tree
     // Initialize total cubic volume
     TCVOL = VMAX;
 
-    // Behré hyperbola parameter estimation
+    // BehrÃ© hyperbola parameter estimation
     double BHAT = VMAX / (0.00545415 * DBHOB * DBHOB * BARK * BARK * HTTOT);
     if (BHAT > 0.95) BHAT = 0.95;
     double AHAT = 0.44277 - 0.99167 / BHAT - 1.43237 * std::log(BHAT)

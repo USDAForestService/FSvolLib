@@ -1,18 +1,18 @@
-#include <cmath>
+﻿#include <cmath>
 #include <string>
 #include <array>
 #include <algorithm>
 #include <cctype>
 #include <stdexcept>
 #include "WoodlandBiomass.h"
-#include "VolumeCalculators/JenkinsBiomass.h"
+#include "VolumeCalculators\JenkinsBiomass.h"
 
 // --------------------------
 // Helper: safe substring
 // --------------------------
 inline std::string safe_substr(const std::string& s, std::size_t pos, std::size_t len) {
     if (pos >= s.size()) return std::string();
-    return s.substr(pos, (std::min)(len, s.size() - pos));
+    return s.substr(pos, std::min(len, s.size() - pos));
 }
 
 // --------------------------
@@ -165,7 +165,7 @@ BiomassOutput woodlandBiomass(VolumeCalculationOptions vco, TreeMeasurment tree,
         DRYBIO[5] = BIO3; // DRYBIO(6) in Fortran
 
         // Branches & foliage
-        const double BIO3_M = BIO3 / 2.2046; // lb ? kg
+        const double BIO3_M = BIO3 / 2.2046; // lb → kg
         double WT_FOL = 0.0, WT_BRA = 0.0;
 
         if (SPN >= 300) {
@@ -191,13 +191,14 @@ BiomassOutput woodlandBiomass(VolumeCalculationOptions vco, TreeMeasurment tree,
                     WT_FOL_M = std::exp(1.2867 + 0.649 * (1.0 + std::log(150.0) - 150.0 / BIO3_M));
                 }
             }
-            WT_FOL = WT_FOL_M * 2.2046; // kg ? lb
+            WT_FOL = WT_FOL_M * 2.2046; // kg → lb
             WT_BRA = WT_FOL * 0.75;
             WT_FOL = WT_FOL * 0.25;
         }
         DRYBIO[11] = WT_BRA; // DRYBIO(12)
         DRYBIO[12] = WT_FOL; // DRYBIO(13)
-        DRYBIO[0] = DRYBIO[5] + DRYBIO[11]; // DRYBIO(1) = BIO3 + branches
+        //changed to use DRYBIO[1] for the above ground total
+        DRYBIO[0] = DRYBIO[1] + DRYBIO[11]; // DRYBIO(1) = BIO3 + branches
         out.aboveGroundTotal = DRYBIO[0];
         out.stemWoodTotal = DRYBIO[1];
         out.branches = DRYBIO[11];

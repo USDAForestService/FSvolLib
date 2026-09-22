@@ -1,8 +1,8 @@
-#include "ClarkTaperModel.h"
-#include "SmalianScribnerIntl14.h"
+ï»¿#include "ClarkTaperModel.h"
+#include "..\SmalianScribnerIntl14.h"
 #include <cmath>
 #include <algorithm>
-#include "array_helper.h"
+#include "..\array_helper.h"
 
 int ClarkTaperModel::findSpeciesIndex(int spcd)
 {
@@ -151,6 +151,7 @@ void ClarkTaperModel::setClarkCoef(int spcd)
         clarkCoef.bfi = R8CF[geoSppIdx][6];
         clarkCoef.spgrp = R8CF[geoSppIdx][2];
         spgrp = clarkCoef.spgrp;
+        clarkCoefOb.dib17 = 0.0;
 
         if (eqHeightType_ == 0 || eqHeightType_ == 1 || eqHeightType_ == 8) {
             
@@ -257,7 +258,7 @@ double GetTotalHeight(double htTot, double dib17, double topHt, double topDib, d
         double discriminant = Qb * Qb - 4.0 * Qa * Qc;
         if (discriminant < 0.0)
         {
-            // Physically invalid parabola ? set error?
+            // Physically invalid parabola â†’ set error?
             // Fortran does NOT set errFlg here, so we mimic behavior.
             discriminant = 0.0;
         }
@@ -586,7 +587,7 @@ double ClarkTaperModel::ClarkDib(double stemHt)
     double Db = 0.0;
     double Dt = 0.0;
 
-    // -------- stump section: 0–4.5 ft
+    // -------- stump section: 0â€“4.5 ft
     if (Is == 1.0) {
         Ds =
             dbhIb * dbhIb *
@@ -690,7 +691,7 @@ double ClarkTaperModel::ClarkDibH479(double stemHt)
     double Z = std::pow((1.0 - 17.3 / Hx), p);
     double T = std::pow((Hx - h) / (Hx - 17.3), q);
 
-    // -------- stump section: 0–4.5 ft
+    // -------- stump section: 0â€“4.5 ft
     if (Is == 1.0) {
         Ds = D2 * (1.0 + (c + e / D3) * (G - W) / (1.0 - G));
     }
@@ -799,7 +800,7 @@ double ClarkTaperModel::ClarkHt(double stmDib, bool useDob)
         }
     }
 
-    // --- Case 2: 4.5–17.3 ft region
+    // --- Case 2: 4.5â€“17.3 ft region
     else if (Ib == 1.0)
     {
         xxx = X - ((dbhIb * dbhIb - stmDib * stmDib) / Z);
@@ -891,7 +892,7 @@ double ClarkTaperModel::ClarkHtH479(double stmDib, bool useDob) {
         Hs = 1.0 - std::pow(((d2 / D2 - 1.0) / W + G), 1.0 / r);
     }
 
-    // --- Case 2: 4.5–17.3 ft region
+    // --- Case 2: 4.5â€“17.3 ft region
     if (Ib == 1.0) {
         Hb = 1.0 - std::pow((X - (D2 - d2) / Z), 1.0 / p);
     }
@@ -1162,7 +1163,7 @@ void ClarkTaperModel::InitializeOnTree(TreeMeasurment tree, MerchRules merchRule
 
             double FCMIN = 0.0;
 
-            // Condition: SPEC ? 221,222,544
+            // Condition: SPEC â‰  221,222,544
             if (volSp != 221 && volSp != 222 && volSp != 544) {
 
                 if (spgrp == 100) {
@@ -1270,6 +1271,16 @@ void ClarkTaperModel::InitializeOnTree(TreeMeasurment tree, MerchRules merchRule
         //Get total height
         totHt = GetTotalHeight(tree.totalHeight, clarkCoefOb.dib17, topHt, topDob, clarkCoefOb.a, clarkCoefOb.b);
         if (tree.totalHeight == 0.0) tree.totalHeight = totHt;
+
+        //DOB17
+        if (clarkCoefOb.dib17 < clarkCoef.dib17) {
+            clarkCoefOb.dib17 = clarkCoef.dib17;
+        }
+        if (clarkCoefOb.dib17 < topDob) {
+            if (topHt > 17.2) {
+                clarkCoefOb.dib17 = topDob + (dbhOb_ - topDob) * (topHt - 17.3) / (topHt - 4.5);
+            }
+        }
     }
 }
 

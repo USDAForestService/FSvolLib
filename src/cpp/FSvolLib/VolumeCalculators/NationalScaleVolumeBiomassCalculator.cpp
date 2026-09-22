@@ -1,4 +1,4 @@
-#include <span>
+ï»¿#include <span>
 #include <array>
 #include <optional>
 #include <cmath>
@@ -16,7 +16,7 @@
 #include "NationalScaleVolumeBiomass.Table9.h" 
 #include "NationalScaleVolumeBiomass.Table11.h" 
 #include "NationalScaleVolumeBiomass.DistrictProvinceData.h"
-#include "string_helper.h"
+#include "..\string_helper.h"
 
 // What we return from the search:
 //struct EqCoeffs {
@@ -60,7 +60,7 @@ bool NationalScaleVolumeBiomass::isValidNVBeq(std::string_view s) {
         if (!(c11 == 'P' || std::isdigit(static_cast<unsigned char>(c11)))) return false;
         //char c11 = s[10];
         if (c11 == 'P') {
-            // 'P' allowed only if 8–10 == "110" or "131"
+            // 'P' allowed only if 8â€“10 == "110" or "131"
             std::string_view last3 = s.substr(7, 3);
             if (last3 != "110" && last3 != "131") return false;
         }
@@ -122,7 +122,7 @@ find_spEqCoef(int spcd, int jkSpeciesGroup, const std::array<spCoefRow, N>& SPco
         if (rank > bestRank) {
             best = &row;
             bestRank = rank;
-            if (bestRank == 4) break; // exact hit — we can stop
+            if (bestRank == 4) break; // exact hit â€” we can stop
         }
     }
 
@@ -179,7 +179,7 @@ EqCoeffs NationalScaleVolumeBiomass::find_spEqCoef2(const std::array<spCoefRow, 
         if (rank > bestRank) {
             best = &row;
             bestRank = rank;
-            if (bestRank == 4) break; // exact hit — we can stop
+            if (bestRank == 4) break; // exact hit â€” we can stop
         }
     }
 
@@ -432,7 +432,7 @@ double NationalScaleVolumeBiomass::getVolWt(std::string typeVolWt, double dbh, d
         break;
     case VolWtType::Unknown:
     default:
-        // Unknown type — keep current behavior (returns 0.0).
+        // Unknown type â€” keep current behavior (returns 0.0).
         // Optionally, log an error here.
         break;
     }
@@ -487,7 +487,7 @@ double getAverageCrownRatio(int DIVISION, int SPCD)
 {
     const auto& table = (SPCD < 300) ? DIVCRs : DIVCRh;
 
-    // DIVISION == 0 ? last row (Fortran used Tbl11Cnt)
+    // DIVISION == 0 â†’ last row (Fortran used Tbl11Cnt)
     if (DIVISION == 0) {
         return table[Tbl11Cnt - 1].cr_percent / 100.0;
     }
@@ -796,6 +796,11 @@ TreeOutput NationalScaleVolumeBiomass::CalculateVolumeBiomass(VolumeCalculationO
             Vtwbk = Vtwob - Vtwib;
             VtwibSound = Vtwib * cullReduction;
             out.grossCubicFootSecondary = VtwibSound;
+        }
+        else {
+            // no topwood, everything goes to tip
+            merchHeightNonsaw = merchHeightSaw;
+            Rmrch = getRatio_impl(totalHt, merchHeightNonsaw, ratioIB_eqCoeffs);
         }
     }
     else //for nonsaw product

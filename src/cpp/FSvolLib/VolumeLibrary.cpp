@@ -1,16 +1,25 @@
+//#include "pch.h"
 #include "VolumeLibrary.h"
 #include "WoodlandBiomass.h"
-#include "VolumeCalculators/JenkinsBiomass.h"
+#include "VolumeCalculators\JenkinsBiomass.h"
+#include "WeightFactorAndRefDataCache.h"
 
 
 
 TreeOutput VolumeLibrary::CalculateVolume(const VolumeCalculationOptions options, const TreeMeasurment tree, std::optional<MerchRules> maybe_merchRules)
 {
 	if (tree.dbh < 1.0 && tree.drc < 1.0) {
-		throw std::invalid_argument("DBH less than one!");
+		TreeOutput out;
+		out.errflag = 3;
+		//throw std::invalid_argument("DBH less than one!");
+		return out;
 	}
 
-	WeightFactorAndRefData refSpeciesData = getSpeciesWtfactorAndRefData(options.region, options.forest, options.fiaCode);
+	//WeightFactorAndRefData refSpeciesData = getSpeciesWtfactorAndRefData(options.region, options.forest, options.fiaCode);
+	WeightFactorAndRefData refSpeciesData = getCachedSpeciesWtfactorAndRefData(options.region, options.forest, options.fiaCode);
+
+	// set the weightFactor variable in VolumeCalculatorBase for profile model to calculate log weight
+	VolumeCalculatorBase::SetWeightFactor(refSpeciesData.weightFactorDry, refSpeciesData.weightFactorSaw, refSpeciesData.weightFactorNonsaw, refSpeciesData.weightFactorDead);
 
 	double weightFactor = (options.primaryProduct == 1) ? refSpeciesData.weightFactorSaw : refSpeciesData.weightFactorNonsaw;
 	weightFactor = (tree.isLive) ? weightFactor : refSpeciesData.weightFactorDead;
@@ -153,7 +162,7 @@ TreeOutput VolumeLibrary::CalculateVolume(const VolumeCalculationOptions options
 		}
 
 		if (treeOutput.tipCubicFoot > 0.0) {
-			double tipWeight = treeOutput.tipCubicFoot * weightFactor;
+			double tipWeight = treeOutput.tipCubicFoot * refSpeciesData.weightFactorNonsaw;
 			treeOutput.greenBio.stemTipWood = tipWeight * ratioWood;
 			treeOutput.greenBio.stemTipBark = tipWeight * (1.0 - ratioWood);
 			treeOutput.dryBio.stemTipWood = treeOutput.greenBio.stemTipWood / mcFactor;
@@ -192,6 +201,10 @@ TreeOutput VolumeLibrary::CalculateVolume(const VolumeCalculationOptions options
 	else {
 		//for woodland species
 		BiomassOutput woodlandTreeBiomass = woodlandBiomass(options, tree, treeOutput.totalCubicFoot);
+
+		if (options.region == 5 || options.region == 6) {
+			woodlandTreeBiomass.aboveGroundTotal = treeOutput.totalCubicFoot * refSpeciesData.WDSG;
+		}
 
 		//adjust broken top
 		if (tree.heightToTopBroken > 0.0 && tree.heightToTopBroken < tree.totalHeight) {

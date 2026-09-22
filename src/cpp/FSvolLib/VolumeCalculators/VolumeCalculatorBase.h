@@ -3,11 +3,11 @@
 #include <string>
 #include <stdexcept>
 
-#include "Models/MerchRules.h"
-#include "Models/TreeOutput.h"
-#include "Models/TreeMeasurment.h"
-#include "Models/VolumeCalculationOptions.h"
-#include "VolumeEquation.h"
+#include "..\Models\MerchRules.h"
+#include "..\Models\TreeOutput.h"
+#include "..\Models\TreeMeasurment.h"
+#include "..\Models\VolumeCalculationOptions.h"
+#include "..\VolumeEquation.h"
 
 class VolumeCalculatorBase
 {
@@ -22,13 +22,19 @@ public:
 
 	virtual double GetDiameterAtHeight(VolumeCalculationOptions vco, TreeMeasurment tree, double height) { return 0.0; };
 
+	static void SetWeightFactor(double dry, double greenSaw, double greenNonsaw, double dead) {
+		weightFactorDry_ = dry;
+		weightFactorGreenSaw_ = greenSaw;
+		weightFactorGreenNonsaw_ = greenNonsaw;
+		weightFactorDead_ = dead;
+	}
 
 protected:
 	const VolumeEquation volumeEquation_;
-	double weightFactorDry;
-	double weightFactorGreenSaw;
-	double weightFactorGreenNonsaw;
-	double weightFactorDead;
+	static double weightFactorDry_;
+	static double weightFactorGreenSaw_;
+	static double weightFactorGreenNonsaw_;
+	static double weightFactorDead_;
 
 	VolumeCalculatorBase(VolumeEquation volumeEquation) 
 		: volumeEquation_(volumeEquation), volumeEquationNumber(volumeEquation.GetVolumeEquationNumber())
