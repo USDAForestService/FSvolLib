@@ -14,6 +14,7 @@ file(GLOB_RECURSE FSvolLib_HEADERS
     "VolumeEquationResolver.h"
     "VolumeLibrary.h"
     "WeightFactorAndRefData.h"
+    "WeightFactorAndRefDataCache.h"
     "WeightFactorAndRefDataResolver.h"
     "WoodlandBiomass.h"
 )
@@ -26,6 +27,7 @@ file(GLOB_RECURSE FSvolLib_SOURCES
     "VolumeEquationResolver.cpp"
     "VolumeEquationResolver.*.cpp"
     "VolumeLibrary.cpp"
+    "WeightFactorAndRefDataCache.cpp"
     "WeightFactorAndRefDataResolver.cpp"
     "WoodlandBiomass.cpp"
 )
