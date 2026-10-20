@@ -1,22 +1,23 @@
 ﻿using System.Runtime.InteropServices;
+using System.Text;
 
 namespace FSvolLib.Interop.Native.CModels;
 
 [StructLayout(LayoutKind.Sequential)]
 public struct VolumeCalculationOptions_C
 {
-    public int fiaCode;
-    public byte auxFlag;
-    public int region;
-    public int forest;
-    public int district;
-    public int primaryProduct;
-    public int secondaryProduct;
-    public int volumeCalculationOptions;
-    public IntPtr volumeEquationNumberOverride;
-    public IntPtr ecoRegion;
-    public int basalArea;
-    public int siteIndex;
+    public int fiaCode = 0;
+    public byte auxFlag = byte.MinValue;
+    public int region = 0;
+    public int forest = 0;
+    public int district = 0;
+    public int primaryProduct = 0;
+    public int secondaryProduct = 0;
+    public int volumeCalculationOptions = 0;
+    public IntPtr volumeEquationNumberOverride = IntPtr.Zero;
+    public IntPtr ecoRegion = IntPtr.Zero;
+    public int basalArea = 0;
+    public int siteIndex = 0;
 
     public VolumeCalculationOptions_C() { }
 
@@ -30,14 +31,11 @@ public struct VolumeCalculationOptions_C
         this.primaryProduct = vco.PrimaryProduct;
         this.secondaryProduct = vco.SecondaryProduct;
         this.volumeCalculationOptions = (int)vco.VolumeCalculationType;
-        this.volumeEquationNumberOverride = MarshalString(vco.VolumeEquationNumberOverride);
-        this.ecoRegion = MarshalString(vco.EcoRegion);
+        this.volumeEquationNumberOverride = vco.VolumeEquationNumberOverride.MarshalString();
+        this.ecoRegion = vco.EcoRegion.MarshalString();
         this.basalArea = vco.BasalArea;
         this.siteIndex = vco.SiteIndex;
     }
 
-    public IntPtr MarshalString(string? str)
-    {
-        return string.IsNullOrEmpty(str) ? IntPtr.Zero : Marshal.StringToCoTaskMemUTF8(str);
-    }
+    
 }

@@ -118,8 +118,8 @@ public static class VolumeLibrary
             secondaryProduct = secondaryProduct,
             volumeCalculationOptions = 0,
             auxFlag = 0,
-            volumeEquationNumberOverride = string.IsNullOrEmpty(volumeEquationNumberOverride) ? IntPtr.Zero : Marshal.StringToCoTaskMemUTF8(volumeEquationNumberOverride),
-            ecoRegion = string.IsNullOrEmpty(ecoRegion) ? IntPtr.Zero : Marshal.StringToCoTaskMemUTF8(ecoRegion)
+            volumeEquationNumberOverride = volumeEquationNumberOverride.MarshalString(),
+            ecoRegion = ecoRegion.MarshalString(),
         };
 
         return options;
