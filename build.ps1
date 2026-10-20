@@ -19,7 +19,7 @@ if (-not $NativePreset) {
 }
 
 $nativeBuildDir = Join-Path $repoRoot "src\cpp\FSvolLib\out\build\$NativePreset"
-$nativeInteropDir = Join-Path $nativeBuildDir "FSvolLib\FSvolLib.interop\$Configuration"
+$nativeInteropDir = Join-Path $nativeBuildDir "cpp\FSvolLib\FSvolLib.interop\$Configuration"
 
 Push-Location $srcRoot
 try {
