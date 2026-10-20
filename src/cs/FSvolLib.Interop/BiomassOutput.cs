@@ -10,10 +10,10 @@ public class BiomassOutput
     public double AboveGroundTotal;
     public double Branches;
     public double Foliage;
-    public double StumpWood;
-    public double StumpBark;
     public double StemWoodTotal;
     public double StemBarkTotal;
+    public double StumpWood;
+    public double StumpBark;
     public double StemPrimaryWood;
     public double StemPrimaryBark;
     public double StemSecondaryWood;

@@ -76,8 +76,20 @@ RefSpeciesData getRefSpeciesData(int fiaSpcd)
 	for (size_t i = 0; i < last; ++i) {
 		if (refSpeciesData[i][0] == fiaSpcd) {
 			found_index =  static_cast<int>(i);
+			break;
 		}
 	}
+
+	if (found_index < 0) {
+		fiaSpcd = (fiaSpcd < 300 ? 299 : 998);
+		for (size_t i = 0; i < last; ++i) {
+			if (refSpeciesData[i][0] == fiaSpcd) {
+				found_index = static_cast<int>(i);
+				break;
+			}
+		}
+	}
+
 
 	if (found_index < 0) found_index = sp999Index;
 	
