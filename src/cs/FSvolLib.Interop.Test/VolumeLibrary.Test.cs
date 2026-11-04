@@ -19,8 +19,8 @@ public class VolumeLibrary_Test
     {
         var options = new VolumeCalculationOptions
         {
-            FiaCode = 100,
-            Region = 2,
+            FiaCode = 316,
+            Region = 9,
             Forest = 1,
             District = 0,
             PrimaryProduct = 1,

@@ -40,7 +40,7 @@ TEST(VolumeLibraryTest, CalculateVolumeTest)
 
         //double dia2 = volLib.GetDiameterAtHeight(volEqDefault, tree, 35.5);
         
-        volOpt.volumeEquationNumberOverride = "R03CHO0066";
+        //volOpt.volumeEquationNumberOverride = "R03CHO0066";
         auto treeOutput = volLib.CalculateVolume(volOpt, tree);
         
         //test input merch rules for BEH

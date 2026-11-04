@@ -11,7 +11,7 @@ public class TreeMeasurment
     public MerchHeightUnit MerchHeightUnit { get; set; } = MerchHeightUnit.FEET;
     public double HeightToFirstLiveLimb { get; set; } = 25.0;
     public double HeightToTopBroken { get; set; }
-    public bool IsLive { get; set; }
+    public bool IsLive { get; set; } = true;
     public double Dbh { get; set; }
     public double Drc { get; set; }
     public double ReferenceDiameter { get; set; }

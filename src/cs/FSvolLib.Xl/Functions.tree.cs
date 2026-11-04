@@ -63,7 +63,7 @@ public partial class Functions
     [return: ExcelHandle]
     public static BiomassOutput? GetGreenBiomass([ExcelHandle] FsvolResult? result)
     {
-        if(result is null || result.Success is false) { return null; }
+        if (result is null || result.Success is false) { return null; }
 
         return result.TreeOutput!.GreenBio;
     }

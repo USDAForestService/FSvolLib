@@ -26,7 +26,7 @@ public class VolumeCalculationOptions
     public int Forest;
     public int District;
     public int PrimaryProduct;
-    public int SecondaryProduct;
+    public int SecondaryProduct = 2;
     public VolumeCalculationType VolumeCalculationType = VolumeCalculationType.FVS;
     public string? VolumeEquationNumberOverride;
     public string? EcoRegion; // optional fia only

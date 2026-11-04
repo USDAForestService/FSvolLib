@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<ExcelAddInName>FS Volume Library V2 Excel Add-In</ExcelAddInName>
+		<ExcelAddInName>FS Volume Library Excel Add-In</ExcelAddInName>
 		<ExcelAddInInclude>FSvolLibInterop.dll</ExcelAddInInclude>
 	</PropertyGroup>
 
