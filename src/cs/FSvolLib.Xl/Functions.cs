@@ -16,7 +16,7 @@ namespace FSvolLib.Xl
 
         [ExcelFunction(Description = "Calculate Tree Volume")]
         [return: ExcelHandle]
-        public static FsvolResult? CalculateVolume(int region, int forest, int district, int fiaCode, int product, double dbh, double totalHeight, double minTopDiaSaw)
+        public static FsvolResult? CalculateVolume(int region, int forest, int fiaSpeciesCode, double dbh, double totalHeight, int district,  int product,  double minTopDiaSaw)
         {
 
             var tree = new TreeMeasurment()
@@ -31,7 +31,7 @@ namespace FSvolLib.Xl
                 Region = region,
                 Forest = forest,
                 District = district,
-                FiaCode = fiaCode,
+                FiaCode = fiaSpeciesCode,
                 PrimaryProduct = product,
                 SecondaryProduct = 2,
             };
@@ -43,13 +43,14 @@ namespace FSvolLib.Xl
 
         [ExcelFunction(Description = "Calculate Tree Volume with extended options")]
         [return: ExcelHandle]
-        public static FsvolResult? CalculateVolumeEx(int region, int forest, int district, int fiaCode, int product, 
-            double dbh, double drc, double refDia, double topBrokenDia,
-            double totalHeight, double refHt, 
-            double merchHtSaw, double merchHtNs, 
-            double htFirstLiveLimb, double htBrokenTop,
-            int formClass, double cull, int decayed, double crownRatio, int stems,
-            double minTopDiaSaw, double minTopDiaNs)
+        public static FsvolResult? CalculateVolumeEx(int region, int forest,  int fiaSpeciesCode,  
+            double dbh, double totalHeight,  
+            string volumeEquationOverride,int product,
+            double merchHtSaw,double minTopDiaSaw, double merchHtNs,double minTopDiaNs,double refHt, double refDia, 
+            //double htFirstLiveLimb, 
+            double htBrokenTop,double topBrokenDia,int district,
+            int formClass,  //int decayed, double crownRatio, 
+            double drc,int stems,double cull)
         {
 
             var tree = new TreeMeasurment()
@@ -62,13 +63,13 @@ namespace FSvolLib.Xl
                 ReferenceHeight = refHt,
                 MerchHeightSaw = merchHtSaw,
                 MerchHeightNonsaw = merchHtNs,
-                HeightToFirstLiveLimb = htFirstLiveLimb,
+                //HeightToFirstLiveLimb = htFirstLiveLimb,
                 HeightToTopBroken = htBrokenTop,
 
                 FormClass = formClass,
                 Cull = cull,
-                Decaycd = decayed,
-                CrownRatio = crownRatio,
+                //Decaycd = decayed,
+                //CrownRatio = crownRatio,
                 Stems = stems,
             };
             if (minTopDiaSaw > 0.0) { tree.MinTopDibSawOverride = minTopDiaSaw; }
@@ -80,9 +81,10 @@ namespace FSvolLib.Xl
                 Region = region,
                 Forest = forest,
                 District = district,
-                FiaCode = fiaCode,
+                FiaCode = fiaSpeciesCode,
                 PrimaryProduct = product,
                 SecondaryProduct = 2,
+                VolumeEquationNumberOverride = volumeEquationOverride,
             };
 
             var result = VolumeLibrary.CalculateVolume(options, tree);
@@ -91,14 +93,14 @@ namespace FSvolLib.Xl
         }
 
         [ExcelFunction(Description = "Get volume equation number")]
-        public static string? GetVolumeEquationNumber(int region, int forest, int district, int fiaCode, int product)
+        public static string? GetVolumeEquationNumber(int region, int forest, int district, int fiaSpeciesCode, int product)
         { 
             var options = new VolumeCalculationOptions()
             {
                 Region = region,
                 Forest = forest,
                 District = district,
-                FiaCode = fiaCode,
+                FiaCode = fiaSpeciesCode,
                 PrimaryProduct = product,
                 SecondaryProduct = 2,
             };

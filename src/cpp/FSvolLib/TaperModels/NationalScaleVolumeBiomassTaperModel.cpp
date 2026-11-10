@@ -23,7 +23,6 @@ StemVolume NationalScaleVolumeBiomassTaperModel::GetStemCubicVol(TreeMeasurment 
 	result.primaryVol = out.grossCubicFootPrimary;
 	result.topwoodVol = out.grossCubicFootSecondary;
 	result.tipVol = out.tipCubicFoot;
-	//result.volCalculated = true;
 
 	return result;
 }

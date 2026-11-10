@@ -10,12 +10,12 @@ TEST(VolumeLibraryTest, CalculateVolumeTest)
         // Arrange
         VolumeLibrary& volLib = VolumeLibrary::getInstance();
         VolumeCalculationOptions volOpt;
-        volOpt.region = 2;
+        volOpt.region = 5;
         volOpt.forest = 1;
-        volOpt.fiaCode = 100;
+        volOpt.fiaCode = 122;
         volOpt.primaryProduct = 1;
         volOpt.secondaryProduct = 2;
-        volOpt.volumeCalculationOptions = VolumeCalculationType::FIA;
+        //volOpt.volumeCalculationOptions = VolumeCalculationType::FIA;
         //volOpt.ecoRegion = "M260";
         // ...
         auto volEqDefault = volLib.GetVolumeEquationNumber(volOpt);

@@ -1038,7 +1038,6 @@ void FlewellingTaperModel::InitializeOnTree(TreeMeasurment tree, MerchRules merc
         totalHeight_ = solveTotalHeight(JSP_, geoSubregion_, dbh_, doubleBarkThicknessBH_, merchHeight_, merchTopDib_);
         
         if (totalHeight_ > 0.0) {
-            threePoint_ = true;
             tree.totalHeight = totalHeight_;
         }
         else {

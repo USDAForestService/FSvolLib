@@ -18,24 +18,24 @@ public static class VolumeLibrary
     public static void ClearCache() => _cache.Clear();
 
     // 3. Updated entry point with safe atomic Lazy evaluation
-    public static FsvolResult CalculateVolume(VolumeCalculationOptions options, TreeMeasurment treeMeasurment)
-    {
-        // Generate the immutable cache key
-        var key = VolumeCacheKey.Create(options, treeMeasurment);
+    //public static FsvolResult CalculateVolume(VolumeCalculationOptions options, TreeMeasurment treeMeasurment)
+    //{
+    //    // Generate the immutable cache key
+    //    var key = VolumeCacheKey.Create(options, treeMeasurment);
 
-        // GetOrAdd instantly returns the Lazy object safely.
-        // The actual P/Invoke only executes inside LazyThreadSafetyMode.ExecutionAndPublication
-        var lazyResult = _cache.GetOrAdd(key, k => new Lazy<FsvolResult>(() =>
-        {
-            var optionsC = new VolumeCalculationOptions_C(options);
-            var treeMeasurmentC = new TreeMeasurment_C(treeMeasurment);
+    //    // GetOrAdd instantly returns the Lazy object safely.
+    //    // The actual P/Invoke only executes inside LazyThreadSafetyMode.ExecutionAndPublication
+    //    var lazyResult = _cache.GetOrAdd(key, k => new Lazy<FsvolResult>(() =>
+    //    {
+    //        var optionsC = new VolumeCalculationOptions_C(options);
+    //        var treeMeasurmentC = new TreeMeasurment_C(treeMeasurment);
 
-            return CalculateVolume(optionsC, treeMeasurmentC);
-        }));
+    //        return CalculateVolume(optionsC, treeMeasurmentC);
+    //    }));
 
-        // Evaluating .Value is completely thread-safe and blocked until the single winning thread finishes
-        return lazyResult.Value;
-    }
+    //    // Evaluating .Value is completely thread-safe and blocked until the single winning thread finishes
+    //    return lazyResult.Value;
+    //}
 
     public static string GetVersion()
     {
@@ -57,13 +57,13 @@ public static class VolumeLibrary
         return Encoding.UTF8.GetString(buffer, 0, nullIndex);
     }
 
-    //public static FsvolResult CalculateVolume(VolumeCalculationOptions options, TreeMeasurment treeMeasurment)
-    //{
-    //    var optionsC = new VolumeCalculationOptions_C(options);
-    //    var treeMeasurmentC = new TreeMeasurment_C(treeMeasurment);
+    public static FsvolResult CalculateVolume(VolumeCalculationOptions options, TreeMeasurment treeMeasurment)
+    {
+        var optionsC = new VolumeCalculationOptions_C(options);
+        var treeMeasurmentC = new TreeMeasurment_C(treeMeasurment);
 
-    //    return CalculateVolume(optionsC, treeMeasurmentC);
-    //}
+        return CalculateVolume(optionsC, treeMeasurmentC);
+    }
 
     public static string GetVolumeEquationNumber(VolumeCalculationOptions options)
     {

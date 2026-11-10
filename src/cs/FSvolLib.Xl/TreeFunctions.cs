@@ -19,6 +19,7 @@ public static class TreeFunctions
             District = district,
             FiaCode = fiaCode,
             PrimaryProduct = product,
+            SecondaryProduct = 2,
             VolumeEquationNumberOverride = volumeEquationOverride
         };
     }
@@ -32,46 +33,41 @@ public static class TreeFunctions
             District = district,
             FiaCode = fiaCode,
             PrimaryProduct = product,
+            SecondaryProduct = 2,
             VolumeEquationNumberOverride = volumeEquationOverride
         };
     }
 
     internal static TreeMeasurment CreateTreeMeasurement(
         double dbh, double totalHeight, 
-        int? product = 1, 
-        double? merchHeight = null, 
-        double? merchTopDiameter = null, 
-        double? referenceHeight = null, 
-        double? referenceTopDiameter = null, 
-        double? heightToTopBroken = null, 
-        double? topBrokenDiameter = null,
-        string? liveOrDead = null,
-        int? formClass = 0,
-        double? drc = null,
-        int? numberOfStems = 1,
-        double? crownRatio = null,
-        double? cull = null,
-        int? decaycd = null)
+        int product, 
+        double merchHeight, 
+        double merchTopDiameter, 
+        double referenceHeight, 
+        double referenceTopDiameter, 
+        double heightToTopBroken, 
+        double topBrokenDiameter,
+        int formClass,
+        double drc,
+        int numberOfStems,
+        double cull)
     {
         return new TreeMeasurment
         {
             Dbh = dbh,
             TotalHeight = totalHeight,
-            MerchHeightSaw = (product == 1) ? merchHeight ?? 0.0 : 0.0,
-            MinTopDibSawOverride = (product == 1) ? merchTopDiameter ?? 0.0 : 0.0,
-            MerchHeightNonsaw = (product != 1) ? merchHeight ?? 0.0 : 0.0,
-            MinTopDibNonSawOverride = (product != 1) ? merchTopDiameter ?? 0.0 : 0.0,
-            ReferenceHeight = referenceHeight ?? 0.0,
-            ReferenceDiameter = referenceTopDiameter ?? 0.0,
-            HeightToTopBroken = heightToTopBroken ?? 0.0,
-            TopBrokenDiameter = topBrokenDiameter ?? 0.0,
-            IsLive = string.IsNullOrEmpty(liveOrDead) || liveOrDead.StartsWith("L", StringComparison.OrdinalIgnoreCase),
-            FormClass = formClass ?? 0,
-            Drc = drc ?? 0.0,
-            Stems = numberOfStems ?? 1,
-            CrownRatio = crownRatio ?? 0.0,
-            Cull = cull ?? 0.0,
-            Decaycd = decaycd ?? 0
+            MerchHeightSaw = (product == 1) ? merchHeight : 0.0,
+            MinTopDibSawOverride = (product == 1) ? merchTopDiameter : -1.0,
+            MerchHeightNonsaw = (product != 1) ? merchHeight : 0.0,
+            MinTopDibNonSawOverride = (product != 1) ? merchTopDiameter : -1.0,
+            ReferenceHeight = referenceHeight,
+            ReferenceDiameter = referenceTopDiameter,
+            HeightToTopBroken = heightToTopBroken,
+            TopBrokenDiameter = topBrokenDiameter,
+            FormClass = formClass,
+            Drc = drc,
+            Stems = numberOfStems,
+            Cull = cull
         };
     }
 
@@ -127,22 +123,19 @@ public static class TreeFunctions
         int fiaSpeciesCode, 
         double dbh, 
         double totalHeight, 
-        int product,
-        string liveOrDead,
-        int formClass,
-        double merchHeight,
-        double merchTopDiameter,
-        double referenceHeight,
-        double referenceTopDiameter,
-        double heightToTopBroken,
-        double topBrokenDiameter,
-        string volumeEquationOverride,
-        double drc,
-        int numberOfStems,
-        double crownRatio,
-        double cull,
-        int decayCode,
-        int district 
+        int district = 0,
+        int product = 1,
+        double merchHeight = 0.0,
+        double merchTopDiameter = 0.0,
+        int formClass = 0,
+        double referenceHeight = 0.0,
+        double referenceTopDiameter = 0.0,
+        double heightToTopBroken = 0.0,
+        double topBrokenDiameter = 0.0,
+        string volumeEquationOverride = "",
+        double drc = 0.0,
+        int numberOfStems = 1,
+        double cull = 0.0
         )
     {
         //var measurement = new TreeMeasurment { TotalHeight = totalHeight, Dbh = dbh };
@@ -156,43 +149,52 @@ public static class TreeFunctions
             referenceTopDiameter, 
             heightToTopBroken, 
             topBrokenDiameter,
-            liveOrDead,
             formClass,
             drc,
             numberOfStems,
-            crownRatio,
-            cull,
-            decayCode
+            cull
         );
         var options = CreateOptions2(region, forest, district, fiaSpeciesCode, product, volumeEquationOverride);
 
         return ExecuteAndExtract<double>(options, measurementWithOverrides, result => result.TotalCubicFoot, 0.0);
     }
 
-    public static double Tree_TotalCubicVolume(int region, int forest, int fiaSpeciesCode, double dbh, double totalHeight, int district, int product)
+    [ExcelFunction(Description = "Calculate Tree Stem Total Cubic Volume from ground to tip")]
+    public static double Tree_TotalCubicVolume(int region, int forest, int fiaSpeciesCode, double dbh, double totalHeight, 
+        int district = 1, int product = 1, string volumeEquationOverride = "")
     {
         var measurement = new TreeMeasurment
         {
             TotalHeight = totalHeight,
             Dbh = dbh
         };
-        var options = CreateOptions(region, forest, district, fiaSpeciesCode, product);
+        var options = CreateOptions(region, forest, district, fiaSpeciesCode, product, volumeEquationOverride);
 
         return ExecuteAndExtract<double>(options, measurement, result => result.TotalCubicFoot, 0.0);
     }
 
     [ExcelFunction(Description = "Calculate Tree Merch Cubic Volume")]
-    public static double Tree_MerchCubicVolume(int region, int forest, int fiaSpeciesCode, double dbh, double totalHeight, double topDiameter, int district, int product)
+    public static double Tree_MerchCubicVolume(int region, int forest, int fiaSpeciesCode, double dbh, double totalHeight, double topDiameter = 0.0, int district = 1, int product = 1)
     {
         var measurement = new TreeMeasurment
         {
             TotalHeight = totalHeight,
             Dbh = dbh,
-            MinTopDibSawOverride = (product == 1) ? topDiameter : -1.0,
-            MinTopDibNonSawOverride = (product != 1) ? topDiameter : -1.0
+            //MinTopDibSawOverride = (product == 1) ? topDiameter : -1.0,
+            //MinTopDibNonSawOverride = (product != 1) ? topDiameter : -1.0
         };
         var options = CreateOptions(region, forest, district, fiaSpeciesCode, product);
-
+        if(topDiameter > 0.0)
+        {
+            if (product == 1)
+            {
+                measurement.MinTopDibSawOverride = topDiameter;
+            }
+            else
+            {
+                measurement.MinTopDibNonSawOverride = topDiameter;
+            }
+        }
         return ExecuteAndExtract<double>(options, measurement, result => result.GrossCubicFootPrimary, 0.0);
     }
 
@@ -203,22 +205,19 @@ public static class TreeFunctions
         int fiaSpeciesCode,
         double dbh,
         double totalHeight,
-        int product,
-        string liveOrDead,
-        int formClass,
-        double merchHeight,
-        double merchTopDiameter,
-        double referenceHeight,
-        double referenceTopDiameter,
-        double heightToTopBroken,
-        double topBrokenDiameter,
-        string volumeEquationOverride,
-        double drc,
-        int numberOfStems,
-        double crownRatio,
-        double cull,
-        int decayCode,
-        int district)
+        int district = 0,
+        int product = 1,
+        double merchHeight = 0.0,
+        double merchTopDiameter = 0.0,
+        int formClass = 0,
+        double referenceHeight = 0.0,
+        double referenceTopDiameter = 0.0,
+        double heightToTopBroken = 0.0,
+        double topBrokenDiameter = 0.0,
+        string volumeEquationOverride = "",
+        double drc = 0.0,
+        int numberOfStems = 1,
+        double cull = 0.0)
     {
         var measurement = CreateTreeMeasurement(
             dbh,
@@ -230,13 +229,10 @@ public static class TreeFunctions
             referenceTopDiameter,
             heightToTopBroken,
             topBrokenDiameter,
-            liveOrDead,
             formClass,
             drc,
             numberOfStems,
-            crownRatio,
-            cull,
-            decayCode
+            cull
         );
         var options = CreateOptions(region, forest, district, fiaSpeciesCode, product, volumeEquationOverride);
 
@@ -245,7 +241,7 @@ public static class TreeFunctions
 
 
     [ExcelFunction(Description = "Calculate Tree Boardfoot Volume")]
-    public static double Tree_GrossBoardFootVolume(int region, int forest, int fiaSpeciesCode, double dbh, double totalHeight, double topDiameter, int district, int product)
+    public static double Tree_GrossBoardFootVolume(int region, int forest, int fiaSpeciesCode, double dbh, double totalHeight, double topDiameter, int district = 1, int product = 1)
     {
         var measurement = new TreeMeasurment
         {
@@ -260,7 +256,7 @@ public static class TreeFunctions
     }
 
     [ExcelFunction(Description = "Calculate Tree International Boardfoot Volume")]
-    public static double Tree_GrossInternationalBoardFootVolume(int region, int forest, int fiaSpeciesCode, double dbh, double totalHeight, double topDiameter, int district, int product)
+    public static double Tree_GrossInternationalBoardFootVolume(int region, int forest, int fiaSpeciesCode, double dbh, double totalHeight, double topDiameter, int district = 1, int product = 1)
     {
         var measurement = new TreeMeasurment
         {
@@ -308,7 +304,7 @@ public static class TreeFunctions
     }
 
     [ExcelFunction(Description = "Calculate Tree Merch Cord Volume")]
-    public static double Tree_MerchCordVolume(int region, int forest, int fiaSpeciesCode, double dbh, double totalHeight, double topDiameter, int district)
+    public static double Tree_CordVolume(int region, int forest, int fiaSpeciesCode, double dbh, double totalHeight, double topDiameter, int district)
     {
         var measurement = new TreeMeasurment
         {
